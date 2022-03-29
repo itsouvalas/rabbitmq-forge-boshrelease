@@ -4,34 +4,32 @@ set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
 # Setup env vars and folders for the webapp_ctl script
-source /var/vcap/jobs/rabbitmq/helpers/ctl_setup.sh 'rabbitmq'
+source /var/vcap/jobs/rabbitmq/helpers/ctl_setup.sh rabbitmq
 
 case $1 in
-
-  start)
+  (start)
     # We cannot use rabbitmqctl to check the version before the service starts so pulling from the app source
-    grep vsn /var/vcap/packages/*/ebin/rabbit.app | sed -e 's/.*vsn,."\([^ ]*\)".*/\1/' >/var/vcap/store/rabbitmq/RABBITMQ_VERSION
+    grep vsn /var/vcap/packages/*/ebin/rabbit.app | 
+      sed -e 's/.*vsn,."\([^ ]*\)".*/\1/' >/var/vcap/store/rabbitmq/RABBITMQ_VERSION
 
-    erl -noshell -eval 'erlang:display(erlang:system_info(system_version))' -eval 'init:stop()' >/var/vcap/store/rabbitmq/ERLANG_VERSION_FULL
-    chown vcap:vcap /var/vcap/store/rabbitmq/RABBITMQ_VERSION /var/vcap/store/rabbitmq/ERLANG_VERSION_FULL
+    erl -noshell -eval 'erlang:display(erlang:system_info(system_version))'\
+      -eval 'init:stop()' >/var/vcap/store/rabbitmq/ERLANG_VERSION_FULL
 
-    <% if p('management') %>
-      rabbitmq-plugins enable --offline rabbitmq_management >>$LOG_DIR/$JOB_NAME.log
+    chown vcap:vcap /var/vcap/store/rabbitmq/RABBITMQ_VERSION \
+      /var/vcap/store/rabbitmq/ERLANG_VERSION_FULL
+
+    <% if p('management') -%>
+    rabbitmq-plugins enable --offline rabbitmq_management >>$LOG_DIR/$JOB_NAME.log
     <% end %>
 
-    exec chpst -u vcap:vcap rabbitmq-server \
-         >>$LOG_DIR/$JOB_NAME.log 2>&1
-
+    exec chpst -u vcap:vcap rabbitmq-server >>$LOG_DIR/$JOB_NAME.log 2>&1
     ;;
-
-  stop)
+  (stop)
     rabbitmqctl stop
-
     ;;
-  *)
+  (*)
     echo "Usage: rabbitmq_ctl {start|stop}"
-
     ;;
-
 esac
+
 exit 0

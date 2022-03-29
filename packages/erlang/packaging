@@ -1,3 +1,4 @@
+#!/bin/bash
 set -ex
 
 VERSION=23.3.4.9
@@ -5,8 +6,8 @@ CPUS=$(grep -c ^processor /proc/cpuinfo)
 
 tar xfv erlang/otp_src_${VERSION}.tar.gz
 pushd otp_src_${VERSION}
-export ERL_TOP=`pwd`
-export HOME=`pwd`
-./configure --prefix=${BOSH_INSTALL_TARGET}
+export ERL_TOP="$PWD"
+export HOME="$PWD"
+./configure --prefix="${BOSH_INSTALL_TARGET}"
 make -j${CPUS} && make install
 popd

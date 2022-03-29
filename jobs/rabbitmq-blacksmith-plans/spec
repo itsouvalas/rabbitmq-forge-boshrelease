@@ -1,5 +1,7 @@
 name: rabbitmq-blacksmith-plans
+
 packages: []
+
 templates:
   bin/configure-blacksmith: bin/configure-blacksmith
 
@@ -13,6 +15,9 @@ templates:
   plans/cluster/credentials.yml:    plans/cluster/credentials.yml
   plans/cluster/init:               plans/cluster/init
 
+  tls/rabbitmq.ca.erb:              tls/rabbitmq.ca
+  tls/rabbitmq.key.erb:             tls/rabbitmq.key
+  tls/rabbitmq.crt.erb:             tls/rabbitmq.crt
 
 properties:
   service.id:
@@ -34,6 +39,19 @@ properties:
   service.limit:
     description: A global limit on the number of RabbitMQ services (regardless of the plan); 0 = unlimited.
     default: 0
+
+  tls.enabled:
+    description: "Should the Redis use TLS"
+    default: false
+  tls.dual-mode:
+    description: "Allow for TLS (5671) and Non-TLS (5672) both."
+    default: true
+  tls.ca:
+    description: The CA Sertificate for the Server Certificate
+  tls.crt:
+    description: The Server Certificate
+  tls.key:
+    description: The Server Key
 
   plans:
     description: |

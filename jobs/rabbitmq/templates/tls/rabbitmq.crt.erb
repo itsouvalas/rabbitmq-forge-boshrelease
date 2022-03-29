@@ -1,0 +1,10 @@
+<% if p("rabbitmq.tls.enabled") -%>
+<% if_p("rabbitmq.tls.crt") do |cert|
+  if !cert.match("CERTIFICATE")
+    cert = cert.gsub(/^(.{40}).*/, '\1...')
+    raise "rabbitmq.tls.crt '#{cert}' does not look like a TLS certificate"
+  end
+-%>
+<%= p("rabbitmq.tls.crt") %>
+<% end -%>
+<% end -%>
