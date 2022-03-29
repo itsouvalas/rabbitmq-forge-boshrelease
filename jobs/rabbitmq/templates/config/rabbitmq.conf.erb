@@ -2,7 +2,7 @@
 # https://www.rabbitmq.com/ssl.html
 
 # TLS Listener is on port 5671
-listeners.ssl.1 = 5671
+listeners.ssl.1 = <%= p("management.tls.port") %>
 # TLS Certificates
 ssl_options.cacertfile           = /var/vcap/jobs/rabbitmq/tls/rabbitmq.ca
 ssl_options.certfile             = /var/vcap/jobs/rabbitmq/tls/rabbitmq.cert

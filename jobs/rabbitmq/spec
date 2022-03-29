@@ -18,6 +18,7 @@ templates:
   bin/monit_debugger:         bin/monit_debugger
   config/advanced.config.erb: config/advanced.config
   config/rabbitmq.conf.erb:   config/rabbitmq.conf
+  config/management.conf.erb: config/management.conf
   config/erl_inetrc.erb:      config/erl_inetrc
   data/properties.sh.erb:     data/properties.sh
   helpers/ctl_setup.sh:       helpers/ctl_setup.sh
@@ -27,17 +28,19 @@ templates:
   tls/rabbitmq.crt.erb:       tls/rabbitmq.crt
 
 properties:
-  management:
+  port:
+    description: "Rabbitmq port"
+    default: 5672
+
+  management.enabled:
     description: "Install the rabbitmq management portal"
     default: true
-
-  management_port:
+  management.port:
     description: "Rabbitmq management portal port"
     default: 15672
-
-  port:
-    description: "Rabbitmq listen port"
-    default: 5672
+  management.tls.port:
+    description: "Rabbitmq management portal TLS port"
+    default: 15671
 
   tls.enabled:
     description: "Should the Redis use TLS"
@@ -45,6 +48,9 @@ properties:
   tls.dual-mode:
     description: "Allow for TLS (5671) and Non-TLS (5672) both."
     default: true
+  tls.port:
+    description: "TLS Port"
+    default: 5671
   tls.ca:
     description: The CA Sertificate for the Server Certificate
   tls.crt:

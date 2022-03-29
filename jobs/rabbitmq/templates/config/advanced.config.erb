@@ -10,8 +10,4 @@
     {default_user, <<"<%= p('default_user') %>">>},
     {default_pass, <<"<%= p('default_password') %>">>}
   ]}
-
-  <% if p('management') -%>
-    ,{rabbitmq_management, [{listener, [{port, <%= p('management_port') %> }]}]}
-  <% end %>
 ].
