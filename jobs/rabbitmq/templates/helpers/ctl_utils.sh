@@ -2,7 +2,7 @@
 
 # links a job file (probably a config file) into a package
 # Example usage:
-# link_job_file_to_package config/redis.yml [config/redis.yml]
+# link_job_file_to_package config/rabbitmq.yml [config/rabbitmq.yml]
 # link_job_file_to_package config/wp-config.php wp-config.php
 link_job_file_to_package() {
   source_job_file=$1

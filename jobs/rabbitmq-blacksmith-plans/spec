@@ -40,17 +40,17 @@ properties:
     description: A global limit on the number of RabbitMQ services (regardless of the plan); 0 = unlimited.
     default: 0
 
-  tls.enabled:
-    description: "Should the Redis use TLS"
+  rabbitmq.tls.enabled:
+    description: "Use TLS"
     default: false
-  tls.dual-mode:
+  rabbitmq.tls.dual-mode:
     description: "Allow for TLS (5671) and Non-TLS (5672) both."
     default: true
-  tls.ca:
+  rabbitmq.tls.ca:
     description: The CA Sertificate for the Server Certificate
-  tls.crt:
+  rabbitmq.tls.crt:
     description: The Server Certificate
-  tls.key:
+  rabbitmq.tls.key:
     description: The Server Key
 
   plans:

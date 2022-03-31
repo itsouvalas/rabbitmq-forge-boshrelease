@@ -42,22 +42,21 @@ properties:
     description: "Rabbitmq management portal TLS port"
     default: 15671
 
-  tls.enabled:
-    description: "Should the Redis use TLS"
+  rabbitmq.tls.enabled:
+    description: "Use TLS"
     default: false
-  tls.dual-mode:
+  rabbitmq.tls.dual-mode:
     description: "Allow for TLS (5671) and Non-TLS (5672) both."
     default: true
-  tls.port:
+  rabbitmq.tls.port:
     description: "TLS Port"
     default: 5671
-  tls.ca:
+  rabbitmq.tls.ca:
     description: The CA Sertificate for the Server Certificate
-  tls.crt:
+  rabbitmq.tls.crt:
     description: The Server Certificate
-  tls.key:
+  rabbitmq.tls.key:
     description: The Server Key
-
 
   erlang_cookie:
     description: "Rabbitmq cookie for clustering"

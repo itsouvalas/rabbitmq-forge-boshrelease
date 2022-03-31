@@ -47,8 +47,8 @@ meta:
   azs: <%= plan["azs"] %>
 <% end %>
 
-<% if p('redis.tls.enabled') -%> 
-redis:
+<% if p('rabbitmq.tls.enabled') -%> 
+rabbitmq:
   tls:
     enabled: true
     dual-mode: true
