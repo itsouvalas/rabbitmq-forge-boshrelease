@@ -1,6 +1,6 @@
 <% if p('management.enabled') -%>
 # https://www.rabbitmq.com/management.html
-management.tcp.port = p('management.port')
+management.tcp.port = <%= p('management.port') %>
 management.tcp.compress = true
 <% if p("rabbitmq.tls.enabled") -%>
 # https://www.rabbitmq.com/ssl.html

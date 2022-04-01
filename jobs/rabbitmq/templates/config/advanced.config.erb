@@ -5,7 +5,6 @@
     <% if servers.size > 1 %>
     {cluster_nodes, {[<%= servers.map { |n| "#{n.name}@#{n.id.tr("-","")}"}.join(',') %>], disc}},
     <% end %>
-    {tcp_listeners, [<%= p('port') %>]},
     {loopback_users, []},
     {default_user, <<"<%= p('default_user') %>">>},
     {default_pass, <<"<%= p('default_password') %>">>}
