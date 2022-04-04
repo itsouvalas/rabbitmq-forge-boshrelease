@@ -6,7 +6,7 @@ listeners.tcp.default = <%= p('port') %> # 5672
 # https://www.rabbitmq.com/ssl.html
 
 # TLS Listener is on port 5671
-listeners.ssl.1 = <%= p("management.tls.port") %>
+listeners.ssl.1 = <%= p("rabbitmq.tls.port") %>
 # TLS Certificates
 ssl_options.cacertfile           = /var/vcap/jobs/rabbitmq/tls/rabbitmq.ca
 ssl_options.certfile             = /var/vcap/jobs/rabbitmq/tls/rabbitmq.crt
@@ -24,8 +24,6 @@ ssl_options.ciphers.6  = TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA      # ECDHE-RSA-AES
 ssl_options.ciphers.7  = TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   # ECDHE-RSA-AES128-GCM-SHA256
 ssl_options.ciphers.8  = TLS_RSA_WITH_AES_128_CBC_SHA256         # AES128-SHA256
 ssl_options.ciphers.9  = TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256   # ECDHE-RSA-AES128-SHA256
-ssl_options.ciphers.10 = TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA     # ECDHE-RSA-DES-CBC3-SHA
-ssl_options.ciphers.11 = TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305    # ECDHE-RSA-CHACHA20-POLY1305
 # NOTE: vvv Disable these two below for tlsv1.3 vvv
 ssl_options.honor_cipher_order   = true
 ssl_options.honor_ecc_order      = true
