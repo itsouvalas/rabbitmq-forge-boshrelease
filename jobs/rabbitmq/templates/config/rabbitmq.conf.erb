@@ -1,4 +1,6 @@
+<% if ! p("rabbitmq.tls.enabled") || (p("rabbitmq.tls.enabled") && p("rabbitmq.tls.dual-mode")) -%>
 listeners.tcp.default = <%= p('port') %> # 5672
+<% end -%>
 
 <% if p("rabbitmq.tls.enabled") -%>
 # https://www.rabbitmq.com/ssl.html
