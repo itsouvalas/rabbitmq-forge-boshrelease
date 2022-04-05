@@ -18,7 +18,6 @@ templates:
   bin/monit_debugger:         bin/monit_debugger
   config/advanced.config.erb: config/advanced.config
   config/rabbitmq.conf.erb:   config/rabbitmq.conf
-  config/management.conf.erb: config/management.conf
   config/erl_inetrc.erb:      config/erl_inetrc
   data/properties.sh.erb:     data/properties.sh
   helpers/ctl_setup.sh:       helpers/ctl_setup.sh

@@ -29,3 +29,22 @@ ssl_options.honor_cipher_order   = true
 ssl_options.honor_ecc_order      = true
 # Troubleshooting: https://www.rabbitmq.com/troubleshooting-ssl.html
 <% end -%>
+
+<% if p('management.enabled') -%>
+# https://www.rabbitmq.com/management.html
+management.tcp.port = <%= p('management.port') %>
+management.tcp.compress = true
+<% if p("rabbitmq.tls.enabled") -%>
+# https://www.rabbitmq.com/ssl.html
+# Management TLS Listener is on port 5671
+management.ssl.port = <%= p("management.tls.port") %>
+# Management TLS Certificates
+management.ssl.cacertfile           = /var/vcap/jobs/rabbitmq/tls/rabbitmq.ca
+management.ssl.certfile             = /var/vcap/jobs/rabbitmq/tls/rabbitmq.crt
+management.ssl.keyfile              = /var/vcap/jobs/rabbitmq/tls/rabbitmq.key
+management.ssl.verify               = verify_peer
+management.ssl.fail_if_no_peer_cert = true
+# All TLS v1.2 RFC Supported Ciphers
+management.ssl.versions.1 = tlsv1.2
+<% end -%>
+<% end -%>

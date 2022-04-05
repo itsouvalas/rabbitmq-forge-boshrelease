@@ -38,8 +38,8 @@ instance_groups:
               enabled: (( grab meta.rabbitmq.tls.enabled || false ))
               dual-mode: (( grab meta.rabbitmq.tls.dual-mode || false ))
               ca: (( grab meta.rabbitmq.tls.ca || "" ))
-              ca_cert: (( grab meta.rabbitmq.tls.ca_cert || "" ))
-              ca_key: (( grab meta.rabbitmq.tls.ca_key || "" ))
+              crt: (( grab meta.rabbitmq.tls.crt || "" ))
+              key: (( grab meta.rabbitmq.tls.key || "" ))
 
         provides:
           rabbitmq-servers: { as: rabbitmq-servers,   ip_addresses: true }
