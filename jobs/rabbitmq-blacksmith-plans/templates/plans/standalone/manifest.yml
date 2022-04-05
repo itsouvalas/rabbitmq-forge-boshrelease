@@ -33,6 +33,14 @@ instance_groups:
         properties:
           default_user:     (( grab meta.username ))
           default_password: (( grab meta.password ))
+          rabbitmq:
+            tls:
+              enabled: (( grab meta.rabbitmq.tls.enabled || false ))
+              dual-mode: (( grab meta.rabbitmq.tls.dual-mode || false ))
+              ca: (( grab meta.rabbitmq.tls.ca || "" ))
+              crt: (( grab meta.rabbitmq.tls.crt || "" ))
+              key: (( grab meta.rabbitmq.tls.key || "" ))
+
         provides:
           rabbitmq-servers: { as: rabbitmq-servers,   ip_addresses: true }
         consumes:

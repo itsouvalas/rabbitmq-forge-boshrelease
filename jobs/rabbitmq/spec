@@ -1,5 +1,6 @@
 ---
 name: rabbitmq
+
 packages:
 - erlang
 - rabbitmq
@@ -13,26 +14,48 @@ consumes:
   type: rabbitmq-server
 
 templates:
-  bin/ctl: bin/ctl
-  bin/monit_debugger: bin/monit_debugger
-  config/rabbitmq.config.erb: config/rabbitmq.config
-  config/erl_inetrc.erb: config/erl_inetrc
-  data/properties.sh.erb: data/properties.sh
-  helpers/ctl_setup.sh: helpers/ctl_setup.sh
-  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+  bin/ctl:                    bin/ctl
+  bin/monit_debugger:         bin/monit_debugger
+  config/advanced.config.erb: config/advanced.config
+  config/rabbitmq.conf.erb:   config/rabbitmq.conf
+  config/erl_inetrc.erb:      config/erl_inetrc
+  data/properties.sh.erb:     data/properties.sh
+  helpers/ctl_setup.sh:       helpers/ctl_setup.sh
+  helpers/ctl_utils.sh:       helpers/ctl_utils.sh
+  tls/rabbitmq.ca.erb:        tls/rabbitmq.ca
+  tls/rabbitmq.key.erb:       tls/rabbitmq.key
+  tls/rabbitmq.crt.erb:       tls/rabbitmq.crt
 
 properties:
-  management:
+  port:
+    description: "Rabbitmq port"
+    default: 5672
+
+  management.enabled:
     description: "Install the rabbitmq management portal"
     default: true
-
-  management_port:
+  management.port:
     description: "Rabbitmq management portal port"
     default: 15672
+  management.tls.port:
+    description: "Rabbitmq management portal TLS port"
+    default: 15671
 
-  port:
-    description: "Rabbitmq listen port"
-    default: 5672
+  rabbitmq.tls.enabled:
+    description: "Use TLS"
+    default: false
+  rabbitmq.tls.dual-mode:
+    description: "Allow for TLS (5671) and Non-TLS (5672) both."
+    default: true
+  rabbitmq.tls.port:
+    description: "TLS Port"
+    default: 5671
+  rabbitmq.tls.ca:
+    description: The CA Sertificate for the Server Certificate
+  rabbitmq.tls.crt:
+    description: The Server Certificate
+  rabbitmq.tls.key:
+    description: The Server Key
 
   erlang_cookie:
     description: "Rabbitmq cookie for clustering"
@@ -45,3 +68,4 @@ properties:
   default_password:
     description: "Rabbitmq default password"
     default: guest
+
