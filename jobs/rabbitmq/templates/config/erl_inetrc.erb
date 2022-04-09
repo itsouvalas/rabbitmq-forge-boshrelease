@@ -1,4 +1,8 @@
 <% link('rabbitmq-servers').instances.map do |instance| %>
-{host, {<%= instance.address.tr(".",",") %>}, ["<%= instance.id.tr("-","") %>"]}.
+%% instance.address <%= instance.address %>
+%% instance.id <%= instance.id %>
+%% instance.name" <%= instance.name %>
+%% instance.index" <%= instance.index %>
+%% instance.az" <%= instance.az %>
 <% end %>
 {lookup, [file, native]}.
