@@ -7,6 +7,9 @@ meta:
   username: (( vault $CREDENTIALS "/rabbitmq/system:username" ))
   password: (( vault $CREDENTIALS "/rabbitmq/system:password" ))
 
+features:
+  use_dns_addresses: true
+
 releases:
   - { name: rabbitmq-forge, version: latest }
 
@@ -38,6 +41,6 @@ instance_groups:
           default_password: (( grab meta.password ))
           rabbitmq:         (( grab meta.rabbitmq ))
         provides:
-          rabbitmq-servers: { as: rabbitmq-servers,   ip_addresses: true }
+          rabbitmq-servers: { as: rabbitmq-servers,   ip_addresses: false }
         consumes:
-          rabbitmq-servers: { from: rabbitmq-servers, ip_addresses: true }
+          rabbitmq-servers: { from: rabbitmq-servers, ip_addresses: false }
