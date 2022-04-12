@@ -75,7 +75,7 @@ chmod 600 /home/vcap/.erlang.cookie
 export PATH=$PATH:/var/vcap/packages/erlang/bin:/var/vcap/packages/rabbitmq/sbin
 export RABBITMQ_HOME=/var/vcap/jobs/rabbitmq
 export RABBITMQ_CONFIG_FILE=$RABBITMQ_HOME/config/rabbitmq
-export RABBITMQ_NODENAME="<%= spec.name %>@<%= spec.address %>"
+export RABBITMQ_NODENAME="<%= spec.id %>.<%= spec.name %>.blacksmith.<%= spec.deployment %>.bosh"
 export RABBITMQ_USE_LONGNAME="true"
 export RABBITMQ_LOG_BASE=/var/vcap/sys/log/rabbitmq
 export RABBITMQ_MNESIA_BASE=/var/vcap/store/rabbitmq

@@ -4,5 +4,6 @@
 %% instance.name" <%= instance.name %>
 %% instance.index" <%= instance.index %>
 %% instance.az" <%= instance.az %>
-<% end %>
+%% {host, {<%= instance.address.tr(".",",") %>}, ["<%= instance.id.tr("-","") %>"]}.
+%% <% end %>
 {lookup, [file, native]}.
