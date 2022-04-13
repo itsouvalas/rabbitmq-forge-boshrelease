@@ -14,17 +14,17 @@ consumes:
   type: rabbitmq-server
 
 templates:
-  bin/ctl:                    bin/ctl
-  bin/monit_debugger:         bin/monit_debugger
-  config/advanced.config.erb: config/advanced.config
-  config/rabbitmq.conf.erb:   config/rabbitmq.conf
-  config/erl_inetrc.erb:      config/erl_inetrc
-  data/properties.sh.erb:     data/properties.sh
-  helpers/ctl_setup.sh:       helpers/ctl_setup.sh
-  helpers/ctl_utils.sh:       helpers/ctl_utils.sh
-  tls/rabbitmq.ca.erb:        tls/rabbitmq.ca
-  tls/rabbitmq.key.erb:       tls/rabbitmq.key
-  tls/rabbitmq.crt.erb:       tls/rabbitmq.crt
+  bin/ctl:                      bin/ctl
+  bin/monit_debugger:           bin/monit_debugger
+  config/advanced.config.erb:   config/advanced.config
+  config/rabbitmq.conf.erb:     config/rabbitmq.conf
+  config/rabbitmq-env.conf.erb: config/rabbitmq-env.conf
+  config/erl_inetrc.erb:        config/erl_inetrc
+  data/properties.sh.erb:       data/properties.sh
+  helpers/ctl_setup.sh:         helpers/ctl_setup.sh
+  tls/rabbitmq.ca.erb:          tls/rabbitmq.ca
+  tls/rabbitmq.key.erb:         tls/rabbitmq.key
+  tls/rabbitmq.crt.erb:         tls/rabbitmq.crt
 
 properties:
   port:

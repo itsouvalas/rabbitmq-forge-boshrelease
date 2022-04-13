@@ -1,0 +1,7 @@
+HOME=/var/vcap/jobs/rabbitmq
+CONFIG_FILE=$RABBITMQ_HOME/config/rabbitmq
+NODENAME="<%= spec.id %>.<%= spec.name %>.blacksmith.<%= spec.deployment %>.bosh"
+USE_LONGNAME="true"
+LOG_BASE=/var/vcap/sys/log/rabbitmq
+MNESIA_BASE=/var/vcap/store/rabbitmq
+ERL_INETRC=/var/vcap/jobs/rabbitmq/config/erl_inetrc
