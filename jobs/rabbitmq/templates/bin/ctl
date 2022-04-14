@@ -21,10 +21,10 @@ case $1 in
       /var/vcap/store/rabbitmq/ERLANG_VERSION_FULL
 
     <% if p('management') -%>
-    rabbitmq-plugins enable --offline rabbitmq_management >>$LOG_DIR/$rabbitmq.log
+    rabbitmq-plugins enable --offline rabbitmq_management >>$LOG_DIR/rabbitmq.log 2>&1
     <% end %>
 
-    exec chpst -u vcap:vcap rabbitmq-server >>$LOG_DIR/$rabbitmq.log 2>&1
+    exec chpst -u vcap:vcap rabbitmq-server >>$LOG_DIR/rabbitmq.log 2>&1
     ;;
   (stop)
     rabbitmqctl stop
