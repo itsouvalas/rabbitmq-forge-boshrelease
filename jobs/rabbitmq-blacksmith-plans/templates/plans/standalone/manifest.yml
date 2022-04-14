@@ -34,8 +34,6 @@ instance_groups:
       - name:    rabbitmq
         release: rabbitmq-forge
         properties:
-          erlang:
-            cookie: (( grab meta.erlang.cookie || 'insecure-cookie-for-erlang' ))
           rabbitmq:
             default:
               user: rabbit
