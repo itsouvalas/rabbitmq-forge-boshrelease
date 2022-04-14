@@ -34,9 +34,15 @@ instance_groups:
       - name:    rabbitmq
         release: rabbitmq-forge
         properties:
-          default_user:     (( grab meta.username ))
-          default_password: (( grab meta.password ))
+          erlang:
+            cookie: (( grab meta.erlang.cookie || 'insecure-cookie-for-erlang' ))
           rabbitmq:
+            default:
+              user: rabbit
+              password: (( grab meta.password ))
+            admin:
+              user: (( grab meta.username ))
+              pass: (( grab meta.password ))
             tls:
               enabled: (( grab meta.rabbitmq.tls.enabled || false ))
               dual-mode: (( grab meta.rabbitmq.tls.dual-mode || false ))
