@@ -3,20 +3,15 @@
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
-JOBS_PATH=/var/vcap/jobs/rabbitmq
-# Setup env vars and folders for the webapp_ctl script
-source ${JOBS_PATH}/helpers/ctl_setup.sh rabbitmq
+source /var/vcap/jobs/rabbitmq/env
 
-# NOTE: The env vars below should be in rabbitmq-env.conf:
-# TODO: Figure out how to make rabbitmq load ^^^ from the job config/ path
-export RABBITMQ_HOME=${JOBS_PATH}
-export RABBITMQ_CONFIG_FILE=$RABBITMQ_HOME/config/rabbitmq
-export RABBITMQ_NODENAME="<%= spec.id %>" # .<%= spec.name %>.blacksmith.<%= spec.deployment %>.bosh
-export RABBITMQ_USE_LONGNAME="true"
-export RABBITMQ_LOG_BASE=/var/vcap/sys/log/rabbitmq
-export RABBITMQ_MNESIA_BASE=/var/vcap/store/rabbitmq
-export RABBITMQ_PID_FILE=$PIDFILE
-export ERL_INETRC=/var/vcap/jobs/rabbitmq/config/erl_inetrc
+for dir in $JOB_DIR $RUN_DIR $LOG_DIR $TMP_DIR $STORE_DIR
+do mkdir -p ${dir} ; chown vcap:vcap ${dir} ; chmod 0775 ${dir}
+done
+
+echo <%= p('erlang.cookie') %> > /home/vcap/.erlang.cookie
+chown vcap:vcap /home/vcap/.erlang.cookie
+chmod 600 /home/vcap/.erlang.cookie
 
 case $1 in
   (start)
@@ -31,7 +26,7 @@ case $1 in
       /var/vcap/store/rabbitmq/ERLANG_VERSION_FULL
 
     <% if p('management') -%>
-    rabbitmq-plugins enable --offline rabbitmq_management >>$LOG_DIR/$JOB_NAME.log
+    rabbitmq-plugins enable --offline rabbitmq_management >> $LOG_DIR/$JOB_NAME.log
     <% end %>
 
     exec chpst -u vcap:vcap rabbitmq-server >>$LOG_DIR/$JOB_NAME.log 2>&1
