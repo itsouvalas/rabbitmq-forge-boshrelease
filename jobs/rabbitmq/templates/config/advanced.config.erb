@@ -1,12 +1,10 @@
 # TODO: Convert this file to the new formate merging into rabbitmq.conf
 [
   {rabbit, [
-    <% servers = link('rabbitmq-servers').instances %>
-    <% if servers.size > 1 %>
+    <% servers = link('rabbitmq-servers').instances -%>
+    <% if servers.size > 1 -%>
     {cluster_nodes, {[<%= servers.map { |n| "#{n.name}@#{n.id.tr("-","")}"}.join(',') %>], disc}},
-    <% end %>
-    {loopback_users, []},
-    {default_user, <<"<%= p('default_user') %>">>},
-    {default_pass, <<"<%= p('default_password') %>">>}
+    <% end -%>
+    {loopback_users, []}
   ]}
 ].

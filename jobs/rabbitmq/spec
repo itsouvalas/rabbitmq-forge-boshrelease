@@ -14,34 +14,21 @@ consumes:
   type: rabbitmq-server
 
 templates:
+  env.rb:                     env
   bin/ctl:                    bin/ctl
-  bin/monit_debugger:         bin/monit_debugger
+  bin/post-start:             bin/post-start
+  bin/pre-start:              bin/pre-start
   config/advanced.config.erb: config/advanced.config
   config/rabbitmq.conf.erb:   config/rabbitmq.conf
   config/erl_inetrc.erb:      config/erl_inetrc
-  data/properties.sh.erb:     data/properties.sh
-  helpers/ctl_setup.sh:       helpers/ctl_setup.sh
-  helpers/ctl_utils.sh:       helpers/ctl_utils.sh
   tls/rabbitmq.ca.erb:        tls/rabbitmq.ca
   tls/rabbitmq.key.erb:       tls/rabbitmq.key
   tls/rabbitmq.crt.erb:       tls/rabbitmq.crt
-  env.rb:                     env
 
 properties:
-  port:
-    description: "Rabbitmq port"
+  rabbitmq.port:
+    description: "Rabbitmq port (5672)"
     default: 5672
-
-  management.enabled:
-    description: "Install the rabbitmq management portal"
-    default: true
-  management.port:
-    description: "Rabbitmq management portal port"
-    default: 15672
-  management.tls.port:
-    description: "Rabbitmq management portal TLS port"
-    default: 15671
-
   rabbitmq.tls.enabled:
     description: "Use TLS"
     default: false
@@ -58,15 +45,30 @@ properties:
   rabbitmq.tls.key:
     description: The Server Key
 
+  rabbitmq.admin.user:
+    description: "Rabbitmq admin username"
+    default: admin
+  rabbitmq.admin.pass:
+    description: "Rabbitmq admin password"
+    default: admin
+  rabbitmq.default.user:
+    description: "Rabbitmq default username"
+    default: rabbit
+  rabbitmq.default.pass:
+    description: "Rabbitmq default password"
+    default: rabbit
+
+  management.enabled:
+    description: "Install the rabbitmq management portal"
+    default: true
+  management.port:
+    description: "Rabbitmq management portal port"
+    default: 15672
+  management.tls.port:
+    description: "Rabbitmq management portal TLS port"
+    default: 15671
+
   erlang.cookie:
     description: "Rabbitmq cookie for clustering"
-    default: cf-cookie
-
-  default_user:
-    description: "Rabbitmq default username"
-    default: guest
-
-  default_password:
-    description: "Rabbitmq default password"
-    default: guest
+    default: insecure-erlang-cookie
 

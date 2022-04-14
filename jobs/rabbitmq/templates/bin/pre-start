@@ -1,0 +1,10 @@
+#!/bin/bash
+set -eu
+
+source /var/vcap/jobs/rabbitmq/env
+
+echo <%= p('erlang.cookie') %> > /home/vcap/.erlang.cookie
+chown vcap:vcap /home/vcap/.erlang.cookie
+chmod 600 /home/vcap/.erlang.cookie
+
+exit 0
