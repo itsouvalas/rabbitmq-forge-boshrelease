@@ -6,6 +6,8 @@ set -u # report the usage of uninitialized variables
 # Setup env vars and folders for the webapp_ctl script
 source /var/vcap/jobs/rabbitmq/helpers/ctl_setup.sh rabbitmq
 
+source /var/vcap/jobs/rabbitmq/env
+
 case $1 in
   (start)
     # We cannot use rabbitmqctl to check the version before the service starts so pulling from the app source

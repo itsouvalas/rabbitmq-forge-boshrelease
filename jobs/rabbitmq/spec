@@ -25,6 +25,7 @@ templates:
   tls/rabbitmq.ca.erb:        tls/rabbitmq.ca
   tls/rabbitmq.key.erb:       tls/rabbitmq.key
   tls/rabbitmq.crt.erb:       tls/rabbitmq.crt
+  env.rb:                     env
 
 properties:
   port:
@@ -57,7 +58,7 @@ properties:
   rabbitmq.tls.key:
     description: The Server Key
 
-  erlang_cookie:
+  erlang.cookie:
     description: "Rabbitmq cookie for clustering"
     default: cf-cookie
 
