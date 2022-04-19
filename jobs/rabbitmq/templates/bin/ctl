@@ -3,11 +3,6 @@ set -eu
 
 source /var/vcap/jobs/rabbitmq/env # RabbitMQ Env Vars
 
-# TODO: Is this truly necessary? vvvv
-for dir in $JOB_DIR $RUN_DIR $LOG_DIR $TMP_DIR $STORE_DIR
-do mkdir -p ${dir} ; chown vcap:vcap ${dir} ; chmod 775 ${dir}
-done
-
 case $1 in
   (start)
     # We cannot use rabbitmqctl to check the version before the service starts so pulling from the app source

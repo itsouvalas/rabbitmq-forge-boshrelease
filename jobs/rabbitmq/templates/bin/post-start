@@ -1,4 +1,5 @@
 #!/bin/bash
+
 set -eu
 
 source /var/vcap/jobs/rabbitmq/env
@@ -23,6 +24,12 @@ set_admin_vhost_permissions() {
   rabbitmqctl set_permissions -p "${RABBITMQ_VHOST:-/}" "$RABBITMQ_ADMIN_USER" \
     "${RABBITMQ_VHOST_CONF-.*}" "${RABBITMQ_VHOST_WRITE-.*}" "${RABBITMQ_VHOST_READ-.*}"
 }
+
+wait_for_rabbitmq_startup() {
+  rabbitmqctl eval -t ${RABBITMQ_EVAL_TIMEOUT} 'rabbit:await_startup().'
+}
+
+wait_for_rabbitmq_startup
 
 authenticate_user || (
   create_admin_user || reset_admin_user_pass

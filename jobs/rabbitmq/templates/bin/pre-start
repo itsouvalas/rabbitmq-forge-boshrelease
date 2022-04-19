@@ -3,6 +3,10 @@ set -eu
 
 source /var/vcap/jobs/rabbitmq/env
 
+for dir in $JOB_DIR $RUN_DIR $LOG_DIR $TMP_DIR $STORE_DIR
+do mkdir -p ${dir} ; chown vcap:vcap ${dir} ; chmod 775 ${dir}
+done # Ensure expected directories exist and have appropriate owner/permissions
+
 echo <%= p('erlang.cookie') %> > /home/vcap/.erlang.cookie
 chown vcap:vcap /home/vcap/.erlang.cookie
 chmod 600 /home/vcap/.erlang.cookie

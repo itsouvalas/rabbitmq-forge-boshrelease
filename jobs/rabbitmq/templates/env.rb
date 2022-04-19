@@ -18,6 +18,7 @@ export RABBITMQ_NODENAME="rabbit@<%= spec.id %>.<%= spec.name %>.blacksmith.<%= 
 export RABBITMQ_PID_FILE="${RUN_DIR}/rabbitmq.pid"
 export RABBITMQ_USE_LONGNAME="true"
 export RABBITMQ_VHOST="/"
+export RABBITMQ_EVAL_TIMEOUT="60"
 
 # Erlang
 export EPMD_PID_FILE="${RUN_DIR}/epmd.pid"
