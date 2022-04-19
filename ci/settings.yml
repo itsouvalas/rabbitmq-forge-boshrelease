@@ -2,8 +2,12 @@
 meta:
   name:    rabbitmq-forge
   release: Blacksmith RabbitMQ Forge
-  target:  blacksmith@pipes
+  target:  cloudpipes/blacksmith
   url:     https://cloudpipes.starkandwayne.com
+  iaas:            gcp
+  exposed:         no
+  version_file:    version
+  initial_version: 2.1.0
 
   manifest:
     path: ci/manifest.yml
@@ -18,18 +22,34 @@ meta:
     password: ((thunder-dome.password))
     cacert:   ((thunder-dome.ca-certificate))
 
+  bosh:
+    uri:      ((bosh.uri))
+    username: ((bosh.username))
+    password: ((bosh.password))
+    cacert:   ((bosh.ca))
+
+  credhub:
+    url:      ((bosh.credhub_url))
+    username: ((bosh.credhub_username))
+    password: ((bosh.credhub_password))
+
+  vault:
+    url:       ((vault.url))
+    token:     ((vault.token))
+
   aws:
-    access_key: ((cfcommunity.access))
-    secret_key: ((cfcommunity.secret))
+    access_key: ((cfcommunity.access)) # aws.access_key_id
+    secret_key: ((cfcommunity.secret)) # aws.secret_access_key
 
   github:
     owner:  blacksmith-community
     repo:   rabbitmq-forge-boshrelease
     branch: master
-    private_key:  ((starkandwayne-bot-github.private-key))
-    access_token: ((starkandwayne-bot-github.access-token))
+    private_key:  ((github.private-key))
+    access_token: ((github.access-token))
 
   shout:
     url:      ((shout.url))
     username: ((shout.username))
     password: ((shout.password))
+
