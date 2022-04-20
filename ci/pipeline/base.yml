@@ -19,13 +19,6 @@ meta:
   url:      (( param "Please specify the full url of the target Concourse CI" ))
   pipeline: (( grab meta.name ))
 
-  upstream:
-    package:  example # dummy value for things that don't use upstream
-    path:     (( grab meta.upstream.package ))
-    org:      cloudfoundry
-    repo:     (( concat meta.upstream.org "/" meta.upstream.package ))
-    url:      (( concat "https://github.com/" meta.upstream.repo ".git" ))
-
   vault:
     url:   (( param "Please provide the address of your Vault" ))
     token: (( param "Please provide a Vault Token" ))
@@ -48,7 +41,8 @@ meta:
     uri:          (( concat "git@github.com:" meta.github.owner "/" meta.github.repo ))
     owner:        (( param "Please specify the name of the user / organization that owns the Github repository" ))
     repo:         (( param "Please specify the name of the Github repository" ))
-    branch:       main
+    branch:       develop
+    main-branch:  main
     private_key:  (( param "Please generate an SSH Deployment Key for this repo and specify it here" ))
     access_token: (( param "Please generate a Personal Access Token to be used for creating github releases (do you have a ci-bot?)" ))
     release_notes:

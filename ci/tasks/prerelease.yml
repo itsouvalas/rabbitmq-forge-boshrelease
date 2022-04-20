@@ -22,7 +22,7 @@ params:
   NOTIFICATION_OUT: notifications
   DEVELOP_BRANCH:   develop
   RELEASE_BRANCH:   main
-  GITHUB_OWNER:     genesis-community
+  GITHUB_OWNER:     blacksmith-community
   GIT_EMAIL:        ci@starkandwayne.com
   GIT_NAME:         Stark & Wayne CI Bot
 

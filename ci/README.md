@@ -78,7 +78,7 @@ set for running the tests.  The basic structure is:
 ---
 meta:
   release:        rabbitmq-forge-boshrelease
-  target:         cloudpipes/genesis
+  target:         cloudpipes/blacksmith
   url:            https://cloudpipes.starkandwayne.com
   iaas:           gcp
   exposed:        false
@@ -229,7 +229,7 @@ The access credentials for the release's repository
 
 `github.owner`
 : The name of the github organization; unless otherwise indicated, this will
-likely be "genesis-community"
+likely be "blacksmith-community"
 
 `github.repo`
 : The name of the repository (without org prefix) for the release being tested.
