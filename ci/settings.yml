@@ -1,13 +1,13 @@
 ---
 meta:
-  name:    rabbitmq-forge
+  name:    rabbitmq-forge-boshrelease
   release: Blacksmith RabbitMQ Forge
   target:  cloudpipes/blacksmith
   url:     https://cloudpipes.starkandwayne.com
   iaas:            gcp
   exposed:         no
   version_file:    version
-  initial_version: 2.1.0
+  initial_version: 0.5.13
 
   manifest:
     path: ci/manifest.yml
@@ -44,7 +44,8 @@ meta:
   github:
     owner:  blacksmith-community
     repo:   rabbitmq-forge-boshrelease
-    branch: master
+    branch: develop
+    main-branch: main
     private_key:  ((github.private-key))
     access_token: ((github.access-token))
 
