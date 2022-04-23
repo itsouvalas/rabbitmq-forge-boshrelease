@@ -46,8 +46,8 @@ meta:
     repo:   rabbitmq-forge-boshrelease
     branch: develop
     main-branch: main
-    private_key:  ((github.private-key))
-    access_token: ((github.access-token))
+    private_key:  ((github.private_key))
+    access_token: ((github.access_token))
 
   shout:
     url:      ((shout.url))
