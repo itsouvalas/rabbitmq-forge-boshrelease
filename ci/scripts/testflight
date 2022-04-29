@@ -1,6 +1,12 @@
 #!/bin/bash
-set -eu
+#
+# ci/scripts/testflight
+#
+# Script for testing a BOSH release
+#
+# author:  James Hunt <james@niftylogic.com>
 
+set -eu
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 header() {
