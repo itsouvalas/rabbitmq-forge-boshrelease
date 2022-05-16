@@ -11,8 +11,10 @@ listeners.ssl.1 = <%= p("rabbitmq.tls.port") %>
 ssl_options.cacertfile           = /var/vcap/jobs/rabbitmq/tls/rabbitmq.ca
 ssl_options.certfile             = /var/vcap/jobs/rabbitmq/tls/rabbitmq.crt
 ssl_options.keyfile              = /var/vcap/jobs/rabbitmq/tls/rabbitmq.key
+<% if p("rabbitmq.verify_peer") == "true" %>
 ssl_options.verify               = verify_peer
 ssl_options.fail_if_no_peer_cert = true
+<% end -%>
 # All TLS v1.2 RFC Supported Ciphers
 ssl_options.versions.1 = tlsv1.2
 ssl_options.ciphers.1  = TLS_RSA_WITH_AES_256_GCM_SHA384         # AES256-GCM-SHA384
