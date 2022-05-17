@@ -61,6 +61,10 @@ properties:
     description: "Rabbitmq default password"
     default: rabbit
 
+  rabbitmq.verify_peer:
+    description: "Validate peer and fail if no peer cert."
+    default: false
+
   management.enabled:
     description: "Install the rabbitmq management portal"
     default: true
