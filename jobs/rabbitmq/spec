@@ -44,6 +44,9 @@ properties:
     description: The Server Certificate
   rabbitmq.tls.key:
     description: The Server Key
+  rabbitmq.network:
+    description: The network rabbitmq instances are deployed in
+    default: rabbitmq-service
 
   rabbitmq.admin.user:
     description: "Rabbitmq admin username"
