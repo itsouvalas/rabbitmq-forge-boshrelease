@@ -17,7 +17,7 @@ params:
   environment: (( params.env ))
 
   cf:
-    exodus_path: (( concat "secret/exodus/" params.env "/cf" ))
+    exodus_path: (( concat "secret/exodus/" meta.environment "/cf" ))
     deployment_name: (( concat meta.environment "-cf" ))
     system_domain: (( vault meta.cf.exodus_path ":system_domain" ))
     api_url:    (( concat "https://api." meta.cf.system_domain ))
