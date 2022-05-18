@@ -4,10 +4,10 @@ meta:
   username: (( vault $CREDENTIALS "/rabbitmq/system:username" ))
   password: (( vault $CREDENTIALS "/rabbitmq/system:password" ))
 
-  environment: (( grab params.env ))
+  environment: (( params.env ))
 
   cf:
-    exodus_path: (( concat "secret/exodus/" grab params.env "/cf" ))
+    exodus_path: (( concat "secret/exodus/" params.env "/cf" ))
     deployment_name: (( concat meta.environment "-cf" ))
     system_domain: (( vault meta.cf.exodus_path ":system_domain" ))
     api_url:    (( concat "https://api." meta.cf.system_domain ))
