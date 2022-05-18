@@ -1,6 +1,6 @@
 ---
 blobstore:
-  provider: s3
+  provider: local
   options:
-    bucket_name: rabbitmq-forge-boshrelease
+    blobstore_path: /Users/ioannis/sw/re/forks/rabbitmq-forge-boshrelease/blobs
 final_name: rabbitmq-forge

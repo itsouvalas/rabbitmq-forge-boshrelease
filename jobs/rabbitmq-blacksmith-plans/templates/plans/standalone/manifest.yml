@@ -10,6 +10,16 @@ features:
 releases:
   - { name: rabbitmq-forge, version: latest }
 
+  - name: loggregator-agent
+    version: 6.3.3
+    url: https://bosh.io/d/github.com/cloudfoundry/loggregator-agent-release?v=6.3.3
+    sha1: e8386f41e967cc609a3e9a1d6ecf674c3c903fb3
+  
+  - name: rabbitmq-metrics-emitter
+    version: 0.4.1
+    url:     https://github.com/starkandwayne/rabbitmq-metrics-emitter-release/releases/download/v0.4.1/rabbitmq-metrics-emitter-0.4.1.tgz
+    sha1:    05afc6f3559f45e0696c6a3760242045640e0df8
+
 stemcells:
 - alias: default
   os: ubuntu-bionic
@@ -56,3 +66,41 @@ instance_groups:
           rabbitmq-servers:
             from: rabbitmq-servers
             ip_addresses: false
+
+      - name: loggregator_agent
+        release: loggregator-agent
+        consumes:
+          doppler:
+            from: doppler
+            deployment: (( grab meta.cf.deployment_name ))
+        properties:
+          loggregator:
+            tls:
+              ca_cert: (( vault meta.cf.exodus_path ":loggregator_ca" ))
+              agent:
+                cert: (( vault meta.cf.exodus_path ":loggregator_tls_agent_cert" ))
+                key: (( vault meta.cf.exodus_path ":loggregator_tls_agent_key" ))
+          metrics:
+            server_name: (( concat genesis.env "-rabbitmq-metrics-emitter" ))
+            ca_cert: (( vault meta.vault "/loggregator-agent/certs/ca:certificate" ))
+            cert:    (( vault meta.vault "/loggregator-agent/certs/metrics:certificate" ))
+            key:     (( vault meta.vault "/loggregator-agent/certs/metrics:key" ))
+
+      - name: rabbitmq-metrics-emitter
+        release: rabbitmq-metrics-emitter
+        properties:
+          rabbitmq_metrics_emitter:
+            cloud_foundry:
+              api:    (( grab meta.cf.api_url ))
+              skip_ssl_validation: (( grab params.cf_skip_ssl_validation ))
+              username:   (( vault meta.cf.exodus_path ":admin_username" ))
+              password:   (( vault meta.cf.exodus_path ":admin_password" ))
+            rmq_management:
+              endpoint: (( concat meta.mgmt_scheme "://" params.mgmt_domain ":" meta.mgmt_port "/api" ))
+              user: management
+              password: (( vault meta.vault "/rabbitmq/admin/management:password" ))
+            loggregator:
+              tls:
+                cert: (( vault meta.cf.exodus_path ":loggregator_tls_agent_cert" ))
+                key: (( vault meta.cf.exodus_path ":loggregator_tls_agent_key" ))
+                ca_cert: (( vault meta.cf.exodus_path ":loggregator_ca" ))
