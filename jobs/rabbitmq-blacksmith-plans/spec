@@ -6,6 +6,7 @@ templates:
   bin/configure-blacksmith: bin/configure-blacksmith
 
   plans/service.yml:                plans/service.yml
+  plans/meta.yml:                   plans/meta.yml
 
   plans/standalone/manifest.yml:    plans/standalone/manifest.yml
   plans/standalone/credentials.yml: plans/standalone/credentials.yml
@@ -39,6 +40,27 @@ properties:
   service.limit:
     description: A global limit on the number of RabbitMQ services (regardless of the plan); 0 = unlimited.
     default: 0
+  
+  environment:
+    description: The environment name of the cloudfoundry/bosh deployment
+
+  cf.exodus_path:
+    description: The vault path pointing to the cf deployment
+
+  cf.deployment_name:
+    description: The cloudfoundry deployment name
+  
+  cf.system_domain:
+    description: The top level cloudfoundry domain
+
+  cf.api_url:
+    description: url of the cf api
+
+  cf.username:
+    description: The admin username for cloudfoundry
+
+  cf.password:
+    description: The admin password for cloudfoundry
 
   rabbitmq.tls.enabled:
     description: "Use TLS"
