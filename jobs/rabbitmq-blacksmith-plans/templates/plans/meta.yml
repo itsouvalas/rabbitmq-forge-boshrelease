@@ -1,0 +1,11 @@
+---
+meta:
+  environment: <%= p('p.environment') %>
+
+  cf:
+    exodus_path: <%= p('p.cf.exodus_path') %>
+    deployment_name: <%= p('p.cf.deployment_name') %>
+    system_domain: <%= p('p.cf.system_domain') %>
+    api_url:    <%= p('p.cf.api_url') %>
+    username:   <%= p('p.cf.username') %>
+    password:   <%= p('p.cf.password') %>
