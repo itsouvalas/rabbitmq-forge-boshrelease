@@ -16,7 +16,7 @@ params:
 
   environment: <%= p('environment') %>
 
-   cf:
+  cf:
     exodus_path: <%= p('cf.exodus_path') %>
     deployment_name: <%= p('cf.deployment_name') %>
     system_domain: <%= p('cf.system_domain') %>
