@@ -96,9 +96,9 @@ instance_groups:
                 key: <%= p('loggregator.tls.agent.key') %>
           metrics:
             server_name: (( concat meta.environment "-rabbitmq-metrics-emitter" ))
-            ca_cert: <%= p('metrics.ca_cert') %>
-            cert:    <%= p('metrics.cert') %>
-            key:     <%= p('metrics.key') %>
+            ca_cert: (( vault meta.vault "/loggregator-agent/certs/ca:certificate" ))
+            cert:    (( vault meta.vault "/loggregator-agent/certs/metrics:certificate" ))
+            key:     (( vault meta.vault "/loggregator-agent/certs/metrics:key" ))
 
       - name: rabbitmq-metrics-emitter
         release: rabbitmq-metrics-emitter
