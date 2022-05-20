@@ -65,10 +65,10 @@ properties:
   loggregator.tls.ca_cert:
     description: The CA Certificate for loggregator
   
-  loggregator.tls.ca_cert.agent.cert:
+  loggregator.tls.agent.cert:
     description: The Certificate for loggregator agent
   
-  loggregator.tls.ca_cert.agent.key:
+  loggregator.tls.agent.key:
     description: The private key for loggregator agent
   
   metrics.ca_cert:
