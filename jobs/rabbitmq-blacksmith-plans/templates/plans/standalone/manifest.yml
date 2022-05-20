@@ -193,10 +193,10 @@ addons:
         properties:
           loggregator:
             tls:
-              ca_cert:  <%= p('loggregator.tls.ca_cert') %>
+              ca_cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.ca" ))
               agent:
-                cert: <%= p('loggregator.tls.agent.cert') %>
-                key: <%= p('loggregator.tls.agent.key') %>
+                cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.crt" ))
+                key: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.key" ))
           metrics:
             server_name: (( concat meta.environment "-rabbitmq-metrics-emitter" ))
             ca_cert: (( vault meta.vault "/loggregator-agent/certs/ca:certificate" ))
@@ -218,6 +218,6 @@ addons:
               password: (( grab meta.password ))
             loggregator:
               tls:
-                cert: <%= p('loggregator.tls.ca_cert') %>
-                key: <%= p('loggregator.tls.agent.cert') %>
-                ca_cert: <%= p('loggregator.tls.agent.key') %>
+                cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.crt" ))
+                key: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.key" ))
+                ca_cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.ca" ))

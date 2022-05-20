@@ -19,6 +19,9 @@ templates:
   tls/rabbitmq.ca.erb:              tls/rabbitmq.ca
   tls/rabbitmq.key.erb:             tls/rabbitmq.key
   tls/rabbitmq.crt.erb:             tls/rabbitmq.crt
+  tls/loggregator.ca:               tls/loggregator.ca
+  tls/loggregator.crt:               tls/loggregator.crt
+  tls/loggregator.key:               tls/loggregator.key
 
 properties:
   service.id:
