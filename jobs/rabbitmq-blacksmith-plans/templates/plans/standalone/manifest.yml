@@ -23,6 +23,9 @@ params:
     api_url:    <%= p('cf.api_url') %>
     username:   <%= p('cf.username') %>
     password:   <%= p('cf.password') %>
+  
+  mgmt_port:   15671
+  mgmt_scheme: https
 
 
 features:
@@ -190,15 +193,15 @@ addons:
         properties:
           loggregator:
             tls:
-              ca_cert: (( vault meta.cf.exodus_path ":loggregator_ca" ))
+              ca_cert:  <%= p('loggregator.tls.ca_cert') %>
               agent:
-                cert: (( vault meta.cf.exodus_path ":loggregator_tls_agent_cert" ))
-                key: (( vault meta.cf.exodus_path ":loggregator_tls_agent_key" ))
+                cert: <%= p('loggregator.tls.ca_cert.agent.cert') %>
+                key: <%= p('loggregator.tls.ca_cert.agent.key') %>
           metrics:
-            server_name: (( concat genesis.env "-rabbitmq-metrics-emitter" ))
-            ca_cert: (( vault meta.vault "/loggregator-agent/certs/ca:certificate" ))
-            cert:    (( vault meta.vault "/loggregator-agent/certs/metrics:certificate" ))
-            key:     (( vault meta.vault "/loggregator-agent/certs/metrics:key" ))
+            server_name: (( concat meta.environment "-rabbitmq-metrics-emitter" ))
+            ca_cert: <%= p('metrics.ca_cert') %>
+            cert:    <%= p('metrics.cert') %>
+            key:     <%= p('metrics.key') %>
 
       - name: rabbitmq-metrics-emitter
         release: rabbitmq-metrics-emitter
@@ -206,15 +209,15 @@ addons:
           rabbitmq_metrics_emitter:
             cloud_foundry:
               api:    (( grab meta.cf.api_url ))
-              skip_ssl_validation: (( grab params.cf_skip_ssl_validation ))
-              username:   (( vault meta.cf.exodus_path ":admin_username" ))
-              password:   (( vault meta.cf.exodus_path ":admin_password" ))
+              skip_ssl_validation: <%= p('rabbitmq_metrics_emitter.cloud_foundry.skip_ssl_validation') %>
+              username: <%= p('rabbitmq_metrics_emitter.cloud_foundry.username') %>
+              password: <%= p('rabbitmq_metrics_emitter.cloud_foundry.password') %>
             rmq_management:
-              endpoint: (( concat meta.mgmt_scheme "://" params.mgmt_domain ":" meta.mgmt_port "/api" ))
-              user: management
-              password: (( vault meta.vault "/rabbitmq/admin/management:password" ))
+              endpoint: (( concat meta.mgmt_scheme "://" jobs.standalone/0.ips[0] ":" meta.mgmt_port "/api" ))
+              user: (( grab meta.username ))
+              password: (( grab meta.password ))
             loggregator:
               tls:
-                cert: (( vault meta.cf.exodus_path ":loggregator_tls_agent_cert" ))
-                key: (( vault meta.cf.exodus_path ":loggregator_tls_agent_key" ))
-                ca_cert: (( vault meta.cf.exodus_path ":loggregator_ca" ))
+                cert: <%= p('loggregator.tls.ca_cert') %>
+                key: <%= p('loggregator.tls.ca_cert.agent.cert') %>
+                ca_cert: <%= p('loggregator.tls.ca_cert.agent.key') %>

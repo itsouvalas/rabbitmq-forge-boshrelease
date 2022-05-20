@@ -62,6 +62,36 @@ properties:
   cf.password:
     description: The admin password for cloudfoundry
 
+  loggregator.tls.ca_cert:
+    description: The CA Certificate for loggregator
+  
+  loggregator.tls.ca_cert.agent.cert:
+    description: The Certificate for loggregator agent
+  
+  loggregator.tls.ca_cert.agent.key:
+    description: The private key for loggregator agent
+  
+  metrics.ca_cert:
+    description: The CA Certificate for the metrics emitter
+
+  metrics.cert:
+    description: The Certificate for metrics emitter
+  
+  metrics.key:
+    description: The private key for metrics emitter
+
+  rabbitmq_metrics_emitter.cloud_foundry.api:
+    description: url of the cf api (same as cf.api_url above)
+
+  rabbitmq_metrics_emitter.cloud_foundry.skip_ssl_validation:
+    description: Skip ssl validation when contacting the api
+
+  rabbitmq_metrics_emitter.cloud_foundry.username:
+    description: The admin username for cloudfoundry (same as cf.username above)
+
+  rabbitmq_metrics_emitter.cloud_foundry.password:
+    description: The admin password for cloudfoundry (same as cf.password above)
+
   rabbitmq.tls.enabled:
     description: "Use TLS"
     default: false
@@ -69,7 +99,7 @@ properties:
     description: "Allow for TLS (5671) and Non-TLS (5672) both."
     default: true
   rabbitmq.tls.ca:
-    description: The CA Sertificate for the Server Certificate
+    description: The CA Certificate for the Server Certificate
   rabbitmq.tls.crt:
     description: The Server Certificate
   rabbitmq.tls.key:
