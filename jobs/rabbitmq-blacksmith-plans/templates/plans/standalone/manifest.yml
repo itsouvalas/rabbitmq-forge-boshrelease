@@ -4,15 +4,15 @@ meta:
   username: (( vault $CREDENTIALS "/rabbitmq/system:username" ))
   password: (( vault $CREDENTIALS "/rabbitmq/system:password" ))
 
-  environment: (( params.env ))
+  environment: <%= p('environment') %>
 
-  cf:
-    exodus_path: (( concat "secret/exodus/" meta.environment "/cf" ))
-    deployment_name: (( concat meta.environment "-cf" ))
-    system_domain: (( vault meta.cf.exodus_path ":system_domain" ))
-    api_url:    (( concat "https://api." meta.cf.system_domain ))
-    username:   (( vault meta.cf.exodus_path ":admin_username" ))
-    password:   (( vault meta.cf.exodus_path ":admin_password" ))
+   cf:
+    exodus_path: <%= p('cf.exodus_path') %>
+    deployment_name: <%= p('cf.deployment_name') %>
+    system_domain: <%= p('cf.system_domain') %>
+    api_url:    <%= p('cf.api_url') %>
+    username:   <%= p('cf.username') %>
+    password:   <%= p('cf.password') %>
 
 
 features:
