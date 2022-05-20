@@ -116,5 +116,5 @@ instance_groups:
             loggregator:
               tls:
                 cert: <%= p('loggregator.tls.ca_cert') %>
-                key: <%= p('loggregator.tls.ca_cert.agent.cert') %>
-                ca_cert: <%= p('loggregator.tls.ca_cert.agent.key') %>
+                key: <%= p('loggregator.tls.agent.cert') %>
+                ca_cert: <%= p('loggregator.tls.agent.key') %>
