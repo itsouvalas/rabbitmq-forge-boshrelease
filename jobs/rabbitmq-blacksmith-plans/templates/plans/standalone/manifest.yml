@@ -92,8 +92,8 @@ instance_groups:
             tls:
               ca_cert:  <%= p('loggregator.tls.ca_cert') %>
               agent:
-                cert: <%= p('loggregator.tls.ca_cert.agent.cert') %>
-                key: <%= p('loggregator.tls.ca_cert.agent.key') %>
+                cert: <%= p('loggregator.tls.agent.cert') %>
+                key: <%= p('loggregator.tls.agent.key') %>
           metrics:
             server_name: (( concat meta.environment "-rabbitmq-metrics-emitter" ))
             ca_cert: <%= p('metrics.ca_cert') %>
