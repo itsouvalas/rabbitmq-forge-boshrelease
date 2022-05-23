@@ -16,7 +16,7 @@ meta:
   
   mgmt_port:   15671
   mgmt_scheme: https
-  rabbitmq_host: <%= spec.networks.default.ip %>
+  rabbitmq_host: lab-rabbitmq-metrics-emitter.bosh
 
 variables:
 - name: rabbitmq_metrics_emitter_ca
