@@ -43,13 +43,12 @@ variables:
   type: certificate
   options:
     is_ca: true
-    common_name: (( concat meta.environment "-rabbitmq-standalone.bosh-internal" ))
-    alternative_names: localhost
+    common_name: (( concat meta.environment "-rabbitmq-standalone.bosh" ))
 - name: rabbitmq_standalone_crt
   type: certificate
   options:
     ca: rabbitmq_standalone_ca
-    common_name: (( concat meta.environment "-rabbitmq-standalone.bosh-internal" ))
+    common_name: (( concat meta.environment "-rabbitmq-standalone.bosh" ))
     alternative_names: localhost
 
 features:
