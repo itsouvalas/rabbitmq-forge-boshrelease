@@ -140,6 +140,7 @@ instance_groups:
               username: <%= p('rabbitmq_metrics_emitter.cloud_foundry.username') %>
               password: <%= p('rabbitmq_metrics_emitter.cloud_foundry.password') %>
             rmq_management:
+              skip_ssl_validation: <%= p('rabbitmq_metrics_emitter.rmq_management.skip_ssl_validation') %>
               endpoint: (( concat meta.mgmt_scheme "://" meta.rabbitmq_host ":" meta.mgmt_port "/api" ))
               user: (( grab meta.username ))
               password: (( grab meta.password ))
