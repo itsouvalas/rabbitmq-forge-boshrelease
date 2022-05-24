@@ -49,7 +49,6 @@ variables:
   options:
     ca: rabbitmq_standalone_ca
     common_name: (( concat meta.environment "-rabbitmq-standalone.bosh" ))
-    alternative_names: localhost
 
 features:
   use_dns_addresses: true
