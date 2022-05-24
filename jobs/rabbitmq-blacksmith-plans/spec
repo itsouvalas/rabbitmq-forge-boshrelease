@@ -87,13 +87,18 @@ properties:
     description: url of the cf api (same as cf.api_url above)
 
   rabbitmq_metrics_emitter.cloud_foundry.skip_ssl_validation:
-    description: Skip ssl validation when contacting the api
+    description: Skip ssl validation when contacting the cf api
+    default: true
 
   rabbitmq_metrics_emitter.cloud_foundry.username:
     description: The admin username for cloudfoundry (same as cf.username above)
 
   rabbitmq_metrics_emitter.cloud_foundry.password:
     description: The admin password for cloudfoundry (same as cf.password above)
+  
+  rabbitmq_metrics_emitter.rmq_management.skip_ssl_validation:
+    description: Skip ssl validation when contacting the rabbitmq api
+    default: true
 
   rabbitmq.tls.enabled:
     description: "Use TLS"
