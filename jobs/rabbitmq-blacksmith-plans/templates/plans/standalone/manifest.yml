@@ -32,7 +32,7 @@ variables:
 - name: rabbitmq_metrics_emitter_crt
   type: certificate
   options:
-    ca: (( concat "/" meta.environment "-bosh/" meta.environment "-blacksmith/" blacksmith_rabbitmq_services_ca ))
+    ca: (( concat "/" meta.environment "-bosh/" meta.environment "-blacksmith/blacksmith_rabbitmq_services_ca" ))
     common_name: (( concat meta.environment "-rabbitmq-metrics-emitter.bosh" ))
   consumes:
     common_name:
@@ -43,7 +43,7 @@ variables:
 - name: rabbitmq_standalone_crt
   type: certificate
   options:
-    ca: (( concat "/" meta.environment "-bosh/" meta.environment "-blacksmith/" blacksmith_rabbitmq_services_ca ))
+    ca: (( concat "/" meta.environment "-bosh/" meta.environment "-blacksmith/blacksmith_rabbitmq_services_ca" ))
     common_name: (( concat meta.environment "-rabbitmq-standalone.bosh" ))
   consumes:
     common_name:
