@@ -20,8 +20,9 @@ templates:
   tls/rabbitmq.key.erb:             tls/rabbitmq.key
   tls/rabbitmq.crt.erb:             tls/rabbitmq.crt
   tls/loggregator.ca:               tls/loggregator.ca
-  tls/loggregator.crt:               tls/loggregator.crt
-  tls/loggregator.key:               tls/loggregator.key
+  tls/loggregator.crt:              tls/loggregator.crt
+  tls/loggregator.key:              tls/loggregator.key
+  tls/blacksmith_rabbitmq_services.ca:  tls/blacksmith_rabbitmq_services.ca
 
 properties:
   service.id:
@@ -99,6 +100,9 @@ properties:
   rabbitmq_metrics_emitter.rmq_management.skip_ssl_validation:
     description: Skip ssl validation when contacting the rabbitmq api
     default: true
+  
+  blacksmith_rabbitmq_services.tls.ca_cert:
+    description: PEM encoded CA certificate provided by blacksmith
 
   rabbitmq.tls.enabled:
     description: "Use TLS"
