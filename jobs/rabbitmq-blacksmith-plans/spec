@@ -101,6 +101,18 @@ properties:
     description: Skip ssl validation when contacting the rabbitmq api
     default: true
   
+  rabbitmq_metrics_emitter.rmq_management.mgmt_port:
+    description: The port used when connecting to the rabbitmq api
+    default: 15671
+
+  rabbitmq_metrics_emitter.rmq_management.mgmt_scheme:
+    description: The scheme used when connecting to the rabbitmq api
+    default: https
+
+  rabbitmq_metrics_emitter.rmq_management.mgmt_host:
+    description: The hostname used when connecting to the rabbitmq api
+    default: localhost
+
   blacksmith_rabbitmq_services.tls.ca_cert:
     description: PEM encoded CA certificate provided by blacksmith
 

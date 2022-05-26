@@ -24,9 +24,10 @@ params:
     username:   <%= p('cf.username') %>
     password:   <%= p('cf.password') %>
   
-  mgmt_port:   15671
-  mgmt_scheme: https
-  rabbitmq_host: localhost
+  mgmt_ssl:    <%= p('rabbitmq_metrics_emitter.rmq_management.skip_ssl_validation') %>
+  mgmt_port:   <%= p('rabbitmq_metrics_emitter.rmq_management.mgmt_port') %>
+  mgmt_scheme: <%= p('rabbitmq_metrics_emitter.rmq_management.mgmt_scheme') %>
+  mgmt_host:   <%= p('rabbitmq_metrics_emitter.rmq_management.mgmt_host') %>
 
 variables:
 - name: rabbitmq_metrics_emitter_crt
@@ -46,8 +47,6 @@ variables:
     ca: (( concat "/" meta.environment "-bosh/" meta.environment "-blacksmith/blacksmith_rabbitmq_services_ca" ))
     common_name: (( concat meta.environment "-rabbitmq-standalone.bosh" ))
   consumes:
-    common_name:
-      from: rabbitmq-san
     alternative_name: 
       from: rabbitmq-san 
       properties: { wildcard: true }
@@ -211,7 +210,7 @@ addons:
           rabbitmq-san:
             as: rabbitmq-san
             ip_addresses: false
-          my_custom_link:
+          rabbitmq-alias-domain:
             aliases:
             - domain: "_.rabbitmq_standalone.bosh"
               placeholder_type: uuid
@@ -222,6 +221,8 @@ addons:
         custom_provider_definitions:
         - name: rabbitmq-san  
           type: address
+        - name: rabbitmq-alias-domain
+          type: placeholder
 
       - name:    bpm
         release: bpm
@@ -255,8 +256,8 @@ addons:
               username: <%= p('rabbitmq_metrics_emitter.cloud_foundry.username') %>
               password: <%= p('rabbitmq_metrics_emitter.cloud_foundry.password') %>
             rmq_management:
-              skip_ssl_validation: <%= p('rabbitmq_metrics_emitter.rmq_management.skip_ssl_validation') %>
-              endpoint: (( concat meta.mgmt_scheme "://" meta.rabbitmq_host ":" meta.mgmt_port "/api" ))
+              skip_ssl_validation: (( grab meta.mgmt_ssl ))
+              endpoint: (( concat meta.mgmt_scheme "://" meta.mgmt_host ":" meta.mgmt_port "/api" ))
               user: (( grab meta.username ))
               password: (( grab meta.password ))
             loggregator:
