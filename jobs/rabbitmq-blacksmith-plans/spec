@@ -71,6 +71,7 @@ properties:
     description: CF Core network
   cf.system_domain:
     description:  CF system domain to use for route registration
+    default: ""
 
   bosh.deployment_name:
     description: BOSH environment deployment name
