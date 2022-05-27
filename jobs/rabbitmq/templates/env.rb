@@ -17,7 +17,7 @@ export RABBITMQ_MNESIA_BASE=/var/vcap/store/rabbitmq
 export RABBITMQ_NODENAME="rabbit@<%= spec.id %>.<%= spec.name %>.<%= p('rabbitmq.network') %>.<%= spec.deployment %>.bosh"
 export RABBITMQ_PID_FILE="${RUN_DIR}/rabbitmq.pid"
 export RABBITMQ_USE_LONGNAME="true"
-export RABBITMQ_VHOST="/"
+export RABBITMQ_VHOST="<%= rabbitmq.vhost %>"
 export RABBITMQ_EVAL_TIMEOUT="60"
 
 # Erlang
