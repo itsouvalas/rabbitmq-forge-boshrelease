@@ -50,6 +50,7 @@ instance_groups:
     release: rabbitmq-forge
     properties:
       rabbitmq:
+        vhost: (( grab meta.params.instance_id || "/" ))
         network: (( grab meta.net || "rabbitmq-service" ))
         default:
           user: rabbit
