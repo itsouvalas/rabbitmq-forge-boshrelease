@@ -190,7 +190,7 @@ addons:
         release: rabbitmq-forge
         properties:
           rabbitmq:
-            vhost: f680fee2-cd83-4f4b-a24f-a91ceb05fbe9
+            vhost: (( grab meta.vhost ))
             default:
               user: rabbit
               password: (( grab meta.password ))
