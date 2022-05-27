@@ -61,6 +61,10 @@ properties:
     description: "Rabbitmq default password"
     default: rabbit
 
+  rabbitmq.vhost:
+    description: "RabbitMQ VHost"
+    default: /
+
   rabbitmq.verify_peer:
     description: "Validate peer and fail if no peer cert."
     default: false
