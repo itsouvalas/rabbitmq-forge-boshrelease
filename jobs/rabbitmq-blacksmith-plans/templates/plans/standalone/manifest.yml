@@ -3,6 +3,7 @@ meta:
   size: default
   username: (( vault $CREDENTIALS "/rabbitmq/system:username" ))
   password: (( vault $CREDENTIALS "/rabbitmq/system:password" ))
+  vhost: f680fee2-cd83-4f4b-a24f-a91ceb05fbe9
 
   environment: <%= p('environment') %>
 
@@ -87,7 +88,7 @@ instance_groups:
         release: rabbitmq-forge
         properties:
           rabbitmq:
-            vhost: f680fee2-cd83-4f4b-a24f-a91ceb05fbe9
+            vhost: (( grab meta.vhost ))
             default:
               user: rabbit
               password: (( grab meta.password ))
