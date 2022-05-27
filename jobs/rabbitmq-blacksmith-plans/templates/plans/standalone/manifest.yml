@@ -87,6 +87,7 @@ instance_groups:
         release: rabbitmq-forge
         properties:
           rabbitmq:
+            vhost: (( grab meta.params.instance_id || "/" ))
             default:
               user: rabbit
               password: (( grab meta.password ))
