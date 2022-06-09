@@ -134,8 +134,6 @@ instance_groups:
         ip_addresses: false
     custom_provider_definitions:
     - name: rabbitmq-san  
-        - name: rabbitmq-san  
-    - name: rabbitmq-san  
       type: address
     - name: rabbitmq-alias-domain
       type: placeholder
