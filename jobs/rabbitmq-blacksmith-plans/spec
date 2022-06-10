@@ -73,15 +73,6 @@ properties:
   
   loggregator.tls.agent.key:
     description: The private key for loggregator agent
-  
-  metrics.ca_cert:
-    description: The CA Certificate for the metrics emitter
-
-  metrics.cert:
-    description: The Certificate for metrics emitter
-  
-  metrics.key:
-    description: The private key for metrics emitter
 
   rabbitmq_metrics_emitter.cloud_foundry.api:
     description: url of the cf api (same as cf.api_url above)
