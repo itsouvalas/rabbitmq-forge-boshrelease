@@ -1,1 +1,0 @@
-<%= p('blacksmith_rabbitmq_services.tls.ca_cert') %>

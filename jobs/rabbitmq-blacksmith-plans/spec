@@ -22,7 +22,6 @@ templates:
   tls/loggregator.ca:               tls/loggregator.ca
   tls/loggregator.crt:              tls/loggregator.crt
   tls/loggregator.key:              tls/loggregator.key
-  tls/blacksmith_rabbitmq_services.ca:  tls/blacksmith_rabbitmq_services.ca
 
 properties:
   service.id:
@@ -112,9 +111,6 @@ properties:
   rabbitmq_metrics_emitter.rmq_management.mgmt_host:
     description: The hostname used when connecting to the rabbitmq api
     default: localhost
-
-  blacksmith_rabbitmq_services.tls.ca_cert:
-    description: PEM encoded CA certificate provided by blacksmith
 
   rabbitmq.tls.enabled:
     description: "Use TLS"
