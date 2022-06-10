@@ -6,6 +6,7 @@ templates:
   bin/configure-blacksmith: bin/configure-blacksmith
 
   plans/service.yml:                plans/service.yml
+  plans/meta.yml:                   plans/meta.yml
 
   plans/standalone/manifest.yml:    plans/standalone/manifest.yml
   plans/standalone/credentials.yml: plans/standalone/credentials.yml
@@ -18,6 +19,9 @@ templates:
   tls/rabbitmq.ca.erb:              tls/rabbitmq.ca
   tls/rabbitmq.key.erb:             tls/rabbitmq.key
   tls/rabbitmq.crt.erb:             tls/rabbitmq.crt
+  tls/loggregator.ca:               tls/loggregator.ca
+  tls/loggregator.crt:              tls/loggregator.crt
+  tls/loggregator.key:              tls/loggregator.key
 
 properties:
   service.id:
@@ -39,6 +43,65 @@ properties:
   service.limit:
     description: A global limit on the number of RabbitMQ services (regardless of the plan); 0 = unlimited.
     default: 0
+  
+  environment:
+    description: The environment name of the cloudfoundry/bosh deployment
+
+  cf.exodus_path:
+    description: The vault path pointing to the cf deployment
+
+  cf.deployment_name:
+    description: The cloudfoundry deployment name
+  
+  cf.system_domain:
+    description: The top level cloudfoundry domain
+
+  cf.api_url:
+    description: url of the cf api
+
+  cf.username:
+    description: The admin username for cloudfoundry
+
+  cf.password:
+    description: The admin password for cloudfoundry
+
+  loggregator.tls.ca_cert:
+    description: The CA Certificate for loggregator
+  
+  loggregator.tls.agent.cert:
+    description: The Certificate for loggregator agent
+  
+  loggregator.tls.agent.key:
+    description: The private key for loggregator agent
+
+  rabbitmq_metrics_emitter.cloud_foundry.api:
+    description: url of the cf api (same as cf.api_url above)
+
+  rabbitmq_metrics_emitter.cloud_foundry.skip_ssl_validation:
+    description: Skip ssl validation when contacting the cf api
+    default: true
+
+  rabbitmq_metrics_emitter.cloud_foundry.username:
+    description: The admin username for cloudfoundry (same as cf.username above)
+
+  rabbitmq_metrics_emitter.cloud_foundry.password:
+    description: The admin password for cloudfoundry (same as cf.password above)
+  
+  rabbitmq_metrics_emitter.rmq_management.skip_ssl_validation:
+    description: Skip ssl validation when contacting the rabbitmq api
+    default: true
+  
+  rabbitmq_metrics_emitter.rmq_management.mgmt_port:
+    description: The port used when connecting to the rabbitmq api
+    default: 15671
+
+  rabbitmq_metrics_emitter.rmq_management.mgmt_scheme:
+    description: The scheme used when connecting to the rabbitmq api
+    default: https
+
+  rabbitmq_metrics_emitter.rmq_management.mgmt_host:
+    description: The hostname used when connecting to the rabbitmq api
+    default: localhost
 
   rabbitmq.tls.enabled:
     description: "Use TLS"
@@ -47,7 +110,7 @@ properties:
     description: "Allow for TLS (5671) and Non-TLS (5672) both."
     default: true
   rabbitmq.tls.ca:
-    description: The CA Sertificate for the Server Certificate
+    description: The CA Certificate for the Server Certificate
   rabbitmq.tls.crt:
     description: The Server Certificate
   rabbitmq.tls.key:

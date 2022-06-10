@@ -60,6 +60,9 @@ properties:
   rabbitmq.default.pass:
     description: "Rabbitmq default password"
     default: rabbit
+  rabbitmq.vhost:
+    description: "RabbitMQ VHost"
+    default: /
 
   rabbitmq.vhost:
     description: "RabbitMQ VHost"

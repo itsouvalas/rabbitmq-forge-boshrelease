@@ -22,7 +22,6 @@ authenticate_user() {
 
 set_admin_vhost_permissions() {
   [[ $RABBITMQ_VHOST == "/" ]] || rabbitmqctl add_vhost "${RABBITMQ_VHOST}"
-
   rabbitmqctl set_permissions -p "${RABBITMQ_VHOST:-/}" "$RABBITMQ_ADMIN_USER" \
     "${RABBITMQ_VHOST_CONF-.*}" "${RABBITMQ_VHOST_WRITE-.*}" "${RABBITMQ_VHOST_READ-.*}"
 }
