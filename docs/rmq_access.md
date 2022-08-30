@@ -106,7 +106,7 @@ blacksmith catalog
 
 Using the information provided above login to the _web url_. Once logged in you will be presented with a set of Plans, Service Instances and Log information:
 
-![Blacksmith_UI](docs/diag/blacksmith_ui.png)
+![Blacksmith_UI](diag/blacksmith_ui.png)
 
 Under _Service Instances_ click on `manifest.yml` and you will be shown the manifest currently in use by the corresponding service instance. Note down the following information
 
@@ -127,7 +127,7 @@ The same information may also be found on `creds.yml` under **management_tls**:
 
 Using the information provided above, visit https://mgmt_host:mgmt_port and use the corresponding credentials. You can now visually check all the information related to the rabbitmq service instance deployed, queues, messages etc:
 
-![Rabbitmq_UI](docs/diag/rmq_ui.png)
+![Rabbitmq_UI](diag/rmq_ui.png)
 
 
 ## Using bosh to communicate with the deployed service instance directly
