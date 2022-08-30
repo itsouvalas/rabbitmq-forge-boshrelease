@@ -3,6 +3,9 @@
 This Blacksmith Forge teaches a [Blacksmith Broker][broker] how to
 deploy standalone and clustered [RabbitMQ][rabbitmq] service
 deployments for message bus applications.
+Continue below on how to deploy and configure the forge or check
+a quick how to [Access Rabbitmq Instances](docs/rmq_access.md) if 
+you've done so already. 
 
 ## Deploying
 
