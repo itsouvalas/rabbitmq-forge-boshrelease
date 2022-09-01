@@ -102,6 +102,19 @@ blacksmith catalog
 ================================================================================
 ```
 
+To get the _web url_ using the FQDN you may use `cf service-brokers` instead:
+
+```
+cf service-brokers
+```
+
+```
+Getting service brokers as admin...
+name                            url
+snw-itsouvalas-lab-blacksmith   https://snw-itsouvalas-lab-blacksmith.cf-domain.xyz:443
+...
+```
+
 ## Get service instances information
 
 Using the information provided above login to the _web url_. Once logged in you will be presented with a set of Plans, Service Instances and Log information:
