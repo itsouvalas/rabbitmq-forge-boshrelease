@@ -64,10 +64,6 @@ properties:
     description: "RabbitMQ VHost"
     default: /
 
-  rabbitmq.vhost:
-    description: "RabbitMQ VHost"
-    default: /
-
   rabbitmq.verify_peer:
     description: "Validate peer and fail if no peer cert."
     default: false
