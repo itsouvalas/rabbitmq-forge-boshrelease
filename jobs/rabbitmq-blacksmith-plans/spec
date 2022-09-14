@@ -47,6 +47,9 @@ properties:
   environment:
     description: The environment name of the cloudfoundry/bosh deployment
 
+  bosh_env:
+    description: The environment name of the bosh deployment if different from cloudfoundry (defaults to environment)
+
   cf.exodus_path:
     description: The vault path pointing to the cf deployment
 
