@@ -13,6 +13,7 @@ instance_groups:
       release: rabbitmq-forge
       properties:
         environment: default
+        bosh_env: default
         rabbitmq_metrics_emitter:
           cloud_foundry:
             username: default
