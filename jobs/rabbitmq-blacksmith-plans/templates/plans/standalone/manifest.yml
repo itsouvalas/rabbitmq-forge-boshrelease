@@ -10,8 +10,8 @@ meta:
 
 <% if p("rabbitmq.route_registrar.enabled") -%>
 params:
-   cf:
-     core_network: <%= p("cf.core_network") %>
+  cf:
+    core_network: <%= p("cf.core_network") %>
 <% end -%>
 
   environment: <%= p('environment') %>
