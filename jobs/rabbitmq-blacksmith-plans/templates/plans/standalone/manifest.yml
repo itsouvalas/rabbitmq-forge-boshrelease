@@ -3,17 +3,6 @@ meta:
   size: default
   username: (( vault $CREDENTIALS "/rabbitmq/system:username" ))
   password: (( vault $CREDENTIALS "/rabbitmq/system:password" ))
-<% if p("rabbitmq.route_registrar.enabled") -%>
-  cf:
-    deployment_name: <%= p("cf.deployment_name") %>
-<% end -%>
-
-<% if p("rabbitmq.route_registrar.enabled") -%>
-params:
-  cf:
-    core_network: <%= p("cf.core_network") %>
-<% end -%>
-
   environment: <%= p('environment') %>
   bosh_env: <%= p('bosh_env') %>
 
@@ -24,11 +13,17 @@ params:
     api_url:    <%= p('cf.api_url') %>
     username:   <%= p('cf.username') %>
     password:   <%= p('cf.password') %>
-  
+
   mgmt_ssl:    <%= p('rabbitmq_metrics_emitter.rmq_management.skip_ssl_validation') %>
   mgmt_port:   <%= p('rabbitmq_metrics_emitter.rmq_management.mgmt_port') %>
   mgmt_scheme: <%= p('rabbitmq_metrics_emitter.rmq_management.mgmt_scheme') %>
   mgmt_host:   <%= p('rabbitmq_metrics_emitter.rmq_management.mgmt_host') %>
+
+<% if p("rabbitmq.route_registrar.enabled") -%>
+params:
+  cf:
+    core_network: <%= p("cf.core_network") %>
+<% end -%>
 
 variables:
 - name: rabbitmq_metrics_emitter_crt
@@ -59,7 +54,6 @@ releases:
   - { name: rabbitmq-forge, version: latest }
 <% if p("rabbitmq.route_registrar.enabled") %>
   - { name: routing, version: latest }
-  - { name: bpm, version: latest }
   - { name: bosh-dns-aliases, version: latest}
 <% end -%>
 
@@ -170,8 +164,6 @@ instance_groups:
       nats-tls:
         from: nats-tls
         deployment: <%= p("cf.deployment_name") %>
-  - name:  bpm
-    release: bpm
 
 addons:
 - name: bosh-dns-aliases
