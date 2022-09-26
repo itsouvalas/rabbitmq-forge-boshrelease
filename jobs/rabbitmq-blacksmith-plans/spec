@@ -58,6 +58,7 @@ properties:
   
   cf.system_domain:
     description: The top level cloudfoundry domain
+    default: ""
 
   cf.api_url:
     description: url of the cf api
@@ -130,14 +131,9 @@ properties:
     description: Network for RabbitMQ Service Deployment
     default: rabbitmq-service
 
-  # When using either dashboard or autoscaler queue depth
-  cf.deployment_name:
-    description: BOSH CF deployment name
+  # When using dashboard
   cf.core_network:
     description: CF Core network
-  cf.system_domain:
-    description:  CF system domain to use for route registration
-    default: ""
 
   bosh.deployment_name:
     description: BOSH environment deployment name
