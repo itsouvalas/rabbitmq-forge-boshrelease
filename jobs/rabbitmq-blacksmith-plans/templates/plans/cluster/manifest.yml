@@ -124,11 +124,11 @@ instance_groups:
             routes:
             - name: (( grab name ))
               uris:
-              - (( concat meta.params.instance_id "." name ".<%= p("cf.system_domain") %>" ))
+              - (( concat "." name ".<%= p("cf.system_domain") %>" ))
               registration_interval: 10s
 <% if p("rabbitmq.route_registrar.tls.enabled") == "true" %>
               tls_port: 15671
-              server_cert_domain_san: (( concat meta.params.instance_id "." name ".<%= p("cf.system_domain") %>" ))
+              server_cert_domain_san: (( concat name ".<%= p("cf.system_domain") %>" ))
 <% else %>
               port: 15672
 <% end %>
