@@ -2,6 +2,10 @@
 listeners.tcp.default = <%= p('rabbitmq.port') %> # 5672
 <% end -%>
 
+<% if (p("rabbitmq.tls.enabled") && ! p("rabbitmq.tls.dual-mode")) -%>
+listeners.tcp = none %> # disables non-tls
+<% end -%>
+
 <% if p("rabbitmq.tls.enabled") -%>
 # https://www.rabbitmq.com/ssl.html
 
