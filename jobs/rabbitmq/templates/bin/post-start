@@ -26,6 +26,27 @@ set_admin_vhost_permissions() {
     "${RABBITMQ_VHOST_CONF-.*}" "${RABBITMQ_VHOST_WRITE-.*}" "${RABBITMQ_VHOST_READ-.*}"
 }
 
+create_management_user() {
+  rabbitmqctl add_user "$RABBITMQ_MANAGEMENT_USER" "$RABBITMQ_MANAGEMENT_PASS"
+}
+
+set_management_user_role() {
+  rabbitmqctl set_user_tags "$RABBITMQ_MANAGEMENT_USER" "management"
+}
+
+reset_management_user_pass() {
+  rabbitmqctl change_password "$RABBITMQ_MANAGEMENT_USER" "$RABBITMQ_MANAGEMENT_PASS"
+}
+
+authenticate_management_user() {
+  rabbitmqctl authenticate_user "${RABBITMQ_MANAGEMENT_USER}" "${RABBITMQ_MANAGEMENT_PASS}"
+}
+
+set_management_vhost_permissions() {
+  rabbitmqctl set_permissions -p "${RABBITMQ_VHOST:-/}" "$RABBITMQ_MANAGEMENT_USER" \
+    "${RABBITMQ_VHOST_CONF-.*}" "${RABBITMQ_VHOST_READ-.*}"
+}
+
 wait_for_rabbitmq_startup() {
   rabbitmqctl eval -t ${RABBITMQ_EVAL_TIMEOUT} 'rabbit:await_startup().'
 }
@@ -38,5 +59,12 @@ authenticate_user || (
 )
 set_admin_user_role
 set_admin_vhost_permissions
+
+authenticate_management_user || (
+  create_management_user || reset_management_user_pass
+  authenticate_management_user
+)
+set_management_user_role
+set_management_vhost_permissions
 
 exit 0
