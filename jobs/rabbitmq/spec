@@ -54,6 +54,12 @@ properties:
   rabbitmq.admin.pass:
     description: "Rabbitmq admin password"
     default: admin
+  rabbitmq.management.user:
+    description: "Rabbitmq user with management tag/role"
+    default: management
+  rabbitmq.management.pass:
+    description: "Rabbitmq pass for user with management tag/role"
+    default: management
   rabbitmq.default.user:
     description: "Rabbitmq default username"
     default: rabbit
