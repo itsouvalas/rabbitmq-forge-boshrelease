@@ -112,7 +112,7 @@ properties:
     default: false
   rabbitmq.tls.dual-mode:
     description: "Allow for TLS (5671) and Non-TLS (5672) both."
-    default: true
+    default: false
   rabbitmq.tls.ca:
     description: The CA Certificate for the Server Certificate
   rabbitmq.tls.crt:
