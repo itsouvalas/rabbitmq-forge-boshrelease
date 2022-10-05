@@ -62,9 +62,10 @@ set_admin_vhost_permissions
 
 
 create_management_user || reset_management_user_pass
-authenticate_management_user
 
 set_management_user_role
 set_management_vhost_permissions
+
+
 
 exit 0
