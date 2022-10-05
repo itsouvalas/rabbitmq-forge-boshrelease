@@ -3,8 +3,8 @@ meta:
   size: default
   username: (( vault $CREDENTIALS "/rabbitmq/system:username" ))
   password: (( vault $CREDENTIALS "/rabbitmq/system:password" ))
-  username-management: (( vault $CREDENTIALS "/rabbitmq/management:username" ))
-  password-management: (( vault $CREDENTIALS "/rabbitmq/management:password" ))
+  username-monitoring: (( vault $CREDENTIALS "/rabbitmq/monitoring:username" ))
+  password-monitoring: (( vault $CREDENTIALS "/rabbitmq/monitoring:password" ))
   environment: <%= p('environment') %>
   bosh_env: <%= p('bosh_env') %>
 
@@ -104,9 +104,9 @@ instance_groups:
         admin:
           user: (( grab meta.username ))
           pass: (( grab meta.password ))
-        management:
-          user: (( grab meta.username-management ))
-          pass: (( grab meta.password-management ))
+        monitoring:
+          user: (( grab meta.username-monitoring ))
+          pass: (( grab meta.password-monitoring ))
         tls:
           enabled: (( grab meta.rabbitmq.tls.enabled || false ))
           dual-mode: (( grab meta.rabbitmq.tls.dual-mode || false ))

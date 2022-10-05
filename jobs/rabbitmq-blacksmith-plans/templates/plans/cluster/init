@@ -4,7 +4,7 @@ set -eu
 safe gen $CREDENTIALS/rabbitmq/system username
 safe gen $CREDENTIALS/rabbitmq/system password
 
-safe gen $CREDENTIALS/rabbitmq/management username
-safe gen $CREDENTIALS/rabbitmq/management password
+safe gen $CREDENTIALS/rabbitmq/monitoring username
+safe gen $CREDENTIALS/rabbitmq/monitoring password
 
 exit 0

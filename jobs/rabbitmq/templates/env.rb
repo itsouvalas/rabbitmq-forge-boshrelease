@@ -11,8 +11,8 @@ export STORE_DIR=/var/vcap/store/rabbitmq
 # RabbitMQ
 export RABBITMQ_ADMIN_PASS="<%= p('rabbitmq.admin.pass') %>"
 export RABBITMQ_ADMIN_USER="<%= p('rabbitmq.admin.user') %>"
-export RABBITMQ_MANAGEMENT_PASS="<%= p('rabbitmq.management.pass') %>"
-export RABBITMQ_MANAGEMENT_USER="<%= p('rabbitmq.management.user') %>"
+export RABBITMQ_MONITORING_PASS="<%= p('rabbitmq.monitoring.pass') %>"
+export RABBITMQ_MONITORING_USER="<%= p('rabbitmq.monitoring.user') %>"
 export RABBITMQ_CONFIG_FILE=${JOB_DIR}/config/rabbitmq.conf
 export RABBITMQ_LOG_BASE=${LOG_DIR}
 export RABBITMQ_MNESIA_BASE=/var/vcap/store/rabbitmq
