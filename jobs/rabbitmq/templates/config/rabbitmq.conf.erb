@@ -60,3 +60,23 @@ management.ssl.ciphers.7  = TLS_RSA_WITH_AES_128_CBC_SHA256         # AES128-SHA
 management.ssl.ciphers.8  = TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256   # ECDHE-RSA-AES128-SHA256
 <% end -%>
 <% end -%>
+#####Cluster configuration#####
+
+<%
+  create_swap_delete = true
+  addresses = link('rabbitmq-servers').instances.map(&:address)
+  if addresses.size <= 1
+    addresses = create_swap_delete ? [spec.address] : [spec.ip]
+  end
+-%>
+
+<% if create_swap_delete -%>
+<% cluster_formation_config = addresses.each_with_index do |fqdn, index| -%>
+cluster_formation.classic_config.nodes.<%= index+1 %> = rabbit@<%= fqdn %>
+<% end -%>
+<% else -%>
+<% cluster_formation_config = addresses.each_with_index do |ip, index| -%>
+cluster_formation.classic_config.nodes.<%= index+1 %> = rabbit@<%= Digest::MD5.hexdigest(ip) %>
+<% end -%>
+<% end -%>
+
