@@ -99,6 +99,7 @@ instance_groups:
     release: rabbitmq-forge
     properties:
       rabbitmq:
+        plan: standalone
         vhost: (( grab meta.params.instance_id || "/" ))
         network: (( grab meta.net || "rabbitmq-service" ))
         admin:
@@ -199,7 +200,7 @@ instance_groups:
         routes:
         - name: (( grab name ))
           uris:
-           - (( concat name ".<%= p("cf.system_domain") %>" ))
+          - (( concat name ".<%= p("cf.system_domain") %>" ))
           registration_interval: 10s
 <% if p("rabbitmq.route_registrar.tls.enabled") == "true" %>
           tls_port: 15671
