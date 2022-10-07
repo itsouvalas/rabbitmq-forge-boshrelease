@@ -47,6 +47,8 @@ properties:
   rabbitmq.network:
     description: The network rabbitmq instances are deployed in
     default: rabbitmq-service
+  rabbitmq.plan:
+    description: The plan type (standalone/cluster) currently in use
 
   rabbitmq.admin.user:
     description: "Rabbitmq admin username"
