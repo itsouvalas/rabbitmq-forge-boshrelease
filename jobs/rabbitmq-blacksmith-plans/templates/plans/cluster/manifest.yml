@@ -19,6 +19,11 @@ meta:
     username:   <%= p('cf.username') %>
     password:   <%= p('cf.password') %>
 
+  mgmt_ssl:    <%= p('rabbitmq_metrics_emitter.rmq_management.skip_ssl_validation') %>
+  mgmt_port:   <%= p('rabbitmq_metrics_emitter.rmq_management.mgmt_port') %>
+  mgmt_scheme: <%= p('rabbitmq_metrics_emitter.rmq_management.mgmt_scheme') %>
+  mgmt_host:   <%= p('rabbitmq_metrics_emitter.rmq_management.mgmt_host') %>
+
 <% if p("rabbitmq.route_registrar.enabled") -%>
 params:
   cf:
@@ -26,6 +31,17 @@ params:
 <% end -%>
 
 variables:
+- name: rabbitmq_metrics_emitter_crt
+  type: certificate
+  options:
+    ca: (( concat "/" meta.bosh_env "-bosh/" meta.environment "-blacksmith/blacksmith_services_ca" ))
+    common_name: (( concat meta.environment "-rabbitmq-metrics-emitter.bosh" ))
+  consumes:
+    common_name:
+      from: rabbitmq-emitter
+    alternative_name: 
+      from: rabbitmq-emitter
+      properties: { wildcard: true }
 - name: rabbitmq_cluster_crt
   type: certificate
   options:
@@ -50,6 +66,16 @@ releases:
     version: 1.1.12
     url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.12
     sha1: 502e9446fa34accaf122ad2b28b6ffa543d5bbca
+
+  - name: loggregator-agent
+    version: 6.3.3
+    url: https://bosh.io/d/github.com/cloudfoundry/loggregator-agent-release?v=6.3.3
+    sha1: e8386f41e967cc609a3e9a1d6ecf674c3c903fb3
+  
+  - name: rabbitmq-metrics-emitter
+    version: 0.4.1
+    url:     https://github.com/starkandwayne/rabbitmq-metrics-emitter-release/releases/download/v0.4.1/rabbitmq-metrics-emitter-0.4.1.tgz
+    sha1:    05afc6f3559f45e0696c6a3760242045640e0df8
 
 stemcells:
 - alias: default
@@ -76,6 +102,7 @@ instance_groups:
         release: rabbitmq-forge
         properties:
           rabbitmq:
+            plan: cluster
             vhost: (( grab meta.params.instance_id || "/" ))
             network: (( grab meta.net || "rabbitmq-service" ))
             admin:
@@ -114,6 +141,53 @@ instance_groups:
 
       - name:    bpm
         release: bpm
+
+  - name: loggregator_agent
+    release: loggregator-agent
+    consumes:
+      doppler:
+        from: doppler
+        deployment: (( grab meta.cf.deployment_name ))
+    properties:
+      loggregator:
+        tls:
+          ca_cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.ca" ))
+          agent:
+            cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.crt" ))
+            key: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.key" ))
+      metrics:
+        server_name: (( concat meta.environment "-rabbitmq-metrics-emitter" ))
+        ca_cert: (( file "/var/vcap/jobs/blacksmith/config/tls/blacksmith_services_ca" ))
+        cert:    ((rabbitmq_metrics_emitter_crt.certificate))
+        key:     ((rabbitmq_metrics_emitter_crt.private_key))
+
+  - name: rabbitmq-metrics-emitter
+    release: rabbitmq-metrics-emitter
+    properties:
+      rabbitmq_metrics_emitter:
+        cloud_foundry:
+          api:    (( grab meta.cf.api_url ))
+          skip_ssl_validation: <%= p('rabbitmq_metrics_emitter.cloud_foundry.skip_ssl_validation') %>
+          username: <%= p('rabbitmq_metrics_emitter.cloud_foundry.username') %>
+          password: <%= p('rabbitmq_metrics_emitter.cloud_foundry.password') %>
+        rmq_management:
+          skip_ssl_validation: (( grab meta.mgmt_ssl ))
+          endpoint: (( concat meta.mgmt_scheme "://" meta.mgmt_host ":" meta.mgmt_port "/api" ))
+          user: (( grab meta.username ))
+          password: (( grab meta.password ))
+        loggregator:
+          tls:
+            cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.crt" ))
+            key: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.key" ))
+            ca_cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.ca" ))
+
+    provides:
+      rabbitmq-emitter:
+        as: rabbitmq-emitter
+        ip_addresses: false
+    custom_provider_definitions:
+    - name: rabbitmq-emitter
+      type: address
 
 <% if p("rabbitmq.route_registrar.enabled") -%>
       - name: route_registrar
