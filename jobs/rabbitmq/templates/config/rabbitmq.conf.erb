@@ -69,7 +69,6 @@ management.ssl.ciphers.8  = TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256   # ECDHE-RSA-
     addresses = create_swap_delete ? [spec.address] : [spec.ip]
   end
 -%>
-
 <% if create_swap_delete -%>
 <% cluster_formation_config = addresses.each_with_index do |fqdn, index| -%>
 cluster_formation.classic_config.nodes.<%= index+1 %> = rabbit@<%= fqdn %>
