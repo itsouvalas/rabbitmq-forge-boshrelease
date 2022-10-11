@@ -62,6 +62,12 @@ properties:
   rabbitmq.monitoring.pass:
     description: "Rabbitmq pass for user with monitoring tag/role"
     default: monitoring
+  rabbitmq.app.user:
+    description: "Rabbitmq app user with management policymaker tag/role"
+    default: app
+  rabbitmq.app.pass:
+    description: "Rabbitmq pass for app user with management policymaker tag/role"
+    default: app
   rabbitmq.default.user:
     description: "Rabbitmq default username"
     default: rabbit

@@ -47,6 +47,27 @@ set_monitoring_vhost_permissions() {
     "${RABBITMQ_VHOST_CONF-^$}" "${RABBITMQ_VHOST_WRITE-^$}" "${RABBITMQ_VHOST_READ-.*}"
 }
 
+create_app_user() {
+  rabbitmqctl add_user "$RABBITMQ_APP_USER" "$RABBITMQ_APP_PASS"
+}
+
+set_app_user_role() {
+  rabbitmqctl set_user_tags "$RABBITMQ_APP_USER" "management policymaker"
+}
+
+reset_app_user_pass() {
+  rabbitmqctl change_password "$RABBITMQ_APP_USER" "$RABBITMQ_APP_PASS"
+}
+
+authenticate_app_user() {
+  rabbitmqctl authenticate_user "${RABBITMQ_APP_USER}" "${RABBITMQ_APP_PASS}"
+}
+
+set_app_vhost_permissions() {
+  rabbitmqctl set_permissions -p "${RABBITMQ_VHOST:-/}" "$RABBITMQ_APP_USER" \
+    "${RABBITMQ_VHOST_CONF-.*}" "${RABBITMQ_VHOST_WRITE-.*}" "${RABBITMQ_VHOST_READ-.*}"
+}
+
 wait_for_rabbitmq_startup() {
   rabbitmqctl eval -t ${RABBITMQ_EVAL_TIMEOUT} 'rabbit:await_startup().'
 }
@@ -60,12 +81,20 @@ authenticate_user || (
 set_admin_user_role
 set_admin_vhost_permissions
 
-
-create_monitoring_user || reset_monitoring_user_pass
+authenticate_monitoring_user || (
+  create_monitoring_user || reset_monitoring_user_pass
+  authenticate_monitoring_user
+)
 
 set_monitoring_user_role
 set_monitoring_vhost_permissions
 
+authenticate_app_user || (
+  create_app_user || reset_app_user_pass
+  authenticate_app_user
+)
 
+set_app_user_role
+set_app_vhost_permissions
 
 exit 0
