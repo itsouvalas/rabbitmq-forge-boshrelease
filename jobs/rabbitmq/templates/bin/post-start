@@ -73,7 +73,7 @@ wait_for_rabbitmq_startup() {
 }
 
 remove_guest_user() {
-  rabbitmqctl delete_user quest
+  rabbitmqctl delete_user guest
 }
 
 wait_for_rabbitmq_startup
