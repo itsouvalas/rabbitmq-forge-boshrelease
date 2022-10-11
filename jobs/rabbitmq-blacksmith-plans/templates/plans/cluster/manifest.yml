@@ -8,6 +8,8 @@ meta:
   password: (( vault $CREDENTIALS "/rabbitmq/system:password" ))
   username-monitoring: (( vault $CREDENTIALS "/rabbitmq/monitoring:username" ))
   password-monitoring: (( vault $CREDENTIALS "/rabbitmq/monitoring:password" ))
+  username-app: (( vault $CREDENTIALS "/rabbitmq/app:username" ))
+  password-app: (( vault $CREDENTIALS "/rabbitmq/app:password" ))
   environment: <%= p('environment') %>
   bosh_env: <%= p('bosh_env') %>
 
@@ -111,6 +113,9 @@ instance_groups:
         monitoring:
           user: (( grab meta.username-monitoring ))
           pass: (( grab meta.password-monitoring ))
+        app:
+          user: (( grab meta.username-app ))
+          pass: (( grab meta.password-app ))
         tls:
           enabled: (( grab meta.rabbitmq.tls.enabled || false ))
           dual-mode: (( grab meta.rabbitmq.tls.dual-mode || false ))

@@ -13,6 +13,8 @@ export RABBITMQ_ADMIN_PASS="<%= p('rabbitmq.admin.pass') %>"
 export RABBITMQ_ADMIN_USER="<%= p('rabbitmq.admin.user') %>"
 export RABBITMQ_MONITORING_PASS="<%= p('rabbitmq.monitoring.pass') %>"
 export RABBITMQ_MONITORING_USER="<%= p('rabbitmq.monitoring.user') %>"
+export RABBITMQ_APP_PASS="<%= p('rabbitmq.app.pass') %>"
+export RABBITMQ_APP_USER="<%= p('rabbitmq.app.user') %>"
 export RABBITMQ_CONFIG_FILE=${JOB_DIR}/config/rabbitmq.conf
 export RABBITMQ_LOG_BASE=${LOG_DIR}
 export RABBITMQ_MNESIA_BASE=/var/vcap/store/rabbitmq

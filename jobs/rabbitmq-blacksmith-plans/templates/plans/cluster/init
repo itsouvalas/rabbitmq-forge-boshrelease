@@ -7,4 +7,7 @@ safe gen $CREDENTIALS/rabbitmq/system password
 safe gen $CREDENTIALS/rabbitmq/monitoring username
 safe gen $CREDENTIALS/rabbitmq/monitoring password
 
+safe gen $CREDENTIALS/rabbitmq/app username
+safe gen $CREDENTIALS/rabbitmq/app password
+
 exit 0
