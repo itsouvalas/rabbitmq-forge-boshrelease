@@ -1,0 +1,33 @@
+name: rabbitmq-forge
+version: 0.8.2
+commit_hash: d697740
+uncommitted_changes: false
+jobs:
+- name: rabbitmq
+  version: 6b1deec4211236a6d6b1e8ac61256a5c784d86c1666039e086346f165f0f969e
+  fingerprint: 6b1deec4211236a6d6b1e8ac61256a5c784d86c1666039e086346f165f0f969e
+  sha1: sha256:dce1ba94793308e6af9b44b804c79aa3e70a5be4f56268f4e5a177a0d6451b8a
+  packages:
+  - erlang
+  - rabbitmq
+- name: rabbitmq-blacksmith-plans
+  version: 517c707f6d2662ed5b8c21ce52a3970a2a46aef8f4fc4c19f085c8f52debe3a7
+  fingerprint: 517c707f6d2662ed5b8c21ce52a3970a2a46aef8f4fc4c19f085c8f52debe3a7
+  sha1: sha256:38fb08d016c99f205a4a12c00fd43d76b06794c81ce625833b737824f901328b
+  packages: []
+packages:
+- name: erlang
+  version: 4de2b3ddd2e483ea3bb9d0ccd35174c2424be4b68da6e99b7129819cd830bd08
+  fingerprint: 4de2b3ddd2e483ea3bb9d0ccd35174c2424be4b68da6e99b7129819cd830bd08
+  sha1: sha256:7938cf70510a7a1a54f1c80ceceada0a698926ab7627358a6fad23554b6b1140
+  dependencies: []
+- name: rabbitmq
+  version: d864836ed1fd19e8529f5840ad11a5ff473148bfb52e91ea10a1508b99e23a60
+  fingerprint: d864836ed1fd19e8529f5840ad11a5ff473148bfb52e91ea10a1508b99e23a60
+  sha1: sha256:cba2f5b37818aa0f97966aefdce8de6602b3a4652b0456f4cdb3b0835d3983eb
+  dependencies:
+  - erlang
+license:
+  version: 2ddf44a51ba997973997ce5343ce1bdc8ee0d1bce5c91d6f0db4fb1386a58cb1
+  fingerprint: 2ddf44a51ba997973997ce5343ce1bdc8ee0d1bce5c91d6f0db4fb1386a58cb1
+  sha1: sha256:0135170e066d928606011e8fc31e5729dc30c788bdad839a60439977852b9a10
