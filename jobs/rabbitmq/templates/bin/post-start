@@ -72,6 +72,10 @@ wait_for_rabbitmq_startup() {
   rabbitmqctl eval -t ${RABBITMQ_EVAL_TIMEOUT} 'rabbit:await_startup().'
 }
 
+remove_guest_user() {
+  rabbitmqctl delete_user quest
+}
+
 wait_for_rabbitmq_startup
 
 authenticate_user || (
@@ -96,5 +100,7 @@ authenticate_app_user || (
 
 set_app_user_role
 set_app_vhost_permissions
+
+remove_guest_user
 
 exit 0
