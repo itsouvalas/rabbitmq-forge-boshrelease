@@ -63,6 +63,10 @@ authenticate_app_user() {
   rabbitmqctl authenticate_user "${RABBITMQ_APP_USER}" "${RABBITMQ_APP_PASS}"
 }
 
+authenticate_guest_user() {
+  rabbitmqctl authenticate_user guest guest
+}
+
 set_app_vhost_permissions() {
   rabbitmqctl set_permissions -p "${RABBITMQ_VHOST:-/}" "$RABBITMQ_APP_USER" \
     "${RABBITMQ_VHOST_CONF-.*}" "${RABBITMQ_VHOST_WRITE-.*}" "${RABBITMQ_VHOST_READ-.*}"
@@ -90,8 +94,6 @@ authenticate_monitoring_user || (
   authenticate_monitoring_user
 )
 
-authenticate_user
-
 set_monitoring_user_role
 set_monitoring_vhost_permissions
 
@@ -100,12 +102,10 @@ authenticate_app_user || (
   authenticate_app_user
 )
 
-authenticate_user
-
 set_app_user_role
 set_app_vhost_permissions
 
-if [ $RABBITMQ_PLAN == "standalone" ]; then
+if authenticate_guest_user; then
   remove_guest_user
 fi
 
