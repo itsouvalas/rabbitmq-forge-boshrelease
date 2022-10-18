@@ -105,6 +105,8 @@ authenticate_user
 set_app_user_role
 set_app_vhost_permissions
 
-remove_guest_user
+if [ $RABBITMQ_PLAN == "standalone" ]; then
+  remove_guest_user
+fi
 
 exit 0

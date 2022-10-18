@@ -9,6 +9,7 @@ export TMP_DIR=/var/vcap/sys/tmp/rabbitmq
 export STORE_DIR=/var/vcap/store/rabbitmq
 
 # RabbitMQ
+export RABBITMQ_PLAN="<%= p('rabbitmq.plan') %>"
 export RABBITMQ_ADMIN_PASS="<%= p('rabbitmq.admin.pass') %>"
 export RABBITMQ_ADMIN_USER="<%= p('rabbitmq.admin.user') %>"
 export RABBITMQ_MONITORING_PASS="<%= p('rabbitmq.monitoring.pass') %>"
