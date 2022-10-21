@@ -1,6 +1,7 @@
 ---
 meta:
   size: default
+  disk_config: {}
   instances: 3
   default:
     azs: [z1,z2]
