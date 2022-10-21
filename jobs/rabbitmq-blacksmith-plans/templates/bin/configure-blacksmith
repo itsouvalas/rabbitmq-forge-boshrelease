@@ -49,6 +49,17 @@ meta:
   azs: <%= plan["azs"] %>
 <% end %>
 
+<% if plan["persist"] %>
+  persistent: true # TODO: this value is currently ignored and persistence is enabled by default.
+<% if plan["disk_type"] %>
+  disk_type: <%= plan["disk_type"] %>
+<% else %>
+  disk_size: <%= plan["disk_size"] || 1_024 %>
+<% end %>
+<% else %>
+  persistent: false # TODO: this value is currently ignored and persistence is enabled by default.
+<% end %>
+
 <% if p('rabbitmq.tls.enabled') -%> 
   rabbitmq:
     tls:

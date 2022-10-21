@@ -1,0 +1,1 @@
+- Add `persist`, `disk_size`, and `disk_type` configuration values.

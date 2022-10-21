@@ -67,9 +67,9 @@ Here's a diagram to clear things up:
 
 - *vm_type* - The name of a BOSH `vm_type` from your cloud-config.
   You can use this to size your RabbitMQ appropriate to your workload
-  requirements, in terms of RAM and CPU.  Increasing the disk size
+  requirements, in terms of RAM and CPU. Increasing the disk size
   via the VM type is not going to net you much of a gain (see
-  the `disk_size` and `persist` options instead.
+  the `disk`, `disk_type`, and `persist` options instead.
 
 - *network* - The name of the network to deply these instances to.
   This network should be defined in your cloud-config, and should
@@ -78,6 +78,18 @@ Here's a diagram to clear things up:
 
   By default, VMs will be deployed into a network named
   `rabbitmq-service`.
+
+- *persist* - Whether or not the data stored in this RabbitMQ
+  instance should be written to disk or not.
+
+- *disk* - If you specify `persist` to get data persistence, you can
+  also specify this configuration value to change the size of the
+  persistent disk.
+
+- *disk_type* - If you specify `persist` to get data persistence, you
+  can also specify this configuration value to change the persistent
+  disk type. If both _disk_ and _disk_type_ are defined, the _disk_
+  configuration value will be ignored.
 
 ### Example Configuration
 

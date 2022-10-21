@@ -96,6 +96,9 @@ instance_groups:
 
   vm_type: (( grab meta.size ))
 
+  persistent_disk: (( grab meta.disk_size || 0 ))
+  persistent_disk_type: (( grab meta.disk_type || "" ))
+
   jobs:
   - name:    rabbitmq
     release: rabbitmq-forge
