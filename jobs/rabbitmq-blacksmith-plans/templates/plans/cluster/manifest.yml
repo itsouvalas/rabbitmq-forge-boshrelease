@@ -99,8 +99,9 @@ instance_groups:
 
   vm_type: (( grab meta.size ))
 
-  persistent_disk: (( grab meta.disk_size || 0 ))
-  persistent_disk_type: (( grab meta.disk_type || "" ))
+  # This is a workaround to make sure only one of `persistent_disk`
+  # and `persistent_disk_type` is defined.
+  .: (( inject meta.disk_config ))
 
   jobs:
   - name:    rabbitmq
