@@ -31,8 +31,9 @@ meta:
 
 
 
-variables:
+
 <% if p("rabbitmq.autoscale.enabled") -%>
+variables:
 - name: rabbitmq_metrics_emitter_crt
   type: certificate
   options:
@@ -47,6 +48,7 @@ variables:
 <% end -%>
 
 <% if p("rabbitmq.tls.enabled") -%>
+variables:
 - name: rabbitmq_cluster_crt
   type: certificate
   options:
