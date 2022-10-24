@@ -145,9 +145,11 @@ instance_groups:
         tls:
           enabled: (( grab meta.rabbitmq.tls.enabled || false ))
           dual-mode: (( grab meta.rabbitmq.tls.dual-mode || false ))
+<% if p("rabbitmq.tls.enabled") -%>
           ca: (( file "/var/vcap/jobs/blacksmith/config/tls/blacksmith_services_ca" ))
           crt: ((rabbitmq_cluster_crt.certificate))
           key: ((rabbitmq_cluster_crt.private_key))
+<% end -%>
 
     provides:
       rabbitmq-servers:
