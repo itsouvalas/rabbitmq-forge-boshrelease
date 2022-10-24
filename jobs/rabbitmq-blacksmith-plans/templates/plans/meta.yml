@@ -2,6 +2,7 @@
 meta:
   environment: <%= p('environment') %>
 
+<% if p("rabbitmq.autoscale.enabled") -%>
   cf:
     exodus_path: <%= p('cf.exodus_path') %>
     deployment_name: <%= p('cf.deployment_name') %>
@@ -9,3 +10,4 @@ meta:
     api_url:    <%= p('cf.api_url') %>
     username:   <%= p('cf.username') %>
     password:   <%= p('cf.password') %>
+<% end -%>

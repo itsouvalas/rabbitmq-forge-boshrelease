@@ -119,6 +119,9 @@ properties:
     description: The Server Certificate
   rabbitmq.tls.key:
     description: The Server Key
+  rabbitmq.autoscale.enabled:
+    description: Enable autoscaling based on rabbitmq queue depth
+    default: false
 
   rabbitmq.route_registrar.enabled:
     description: Enable registration of dashbaord url with cf
