@@ -68,12 +68,14 @@ releases:
   - { name: rabbitmq-forge, version: latest }
 <% if p("rabbitmq.route_registrar.enabled") %>
   - { name: routing, version: latest }
-  - { name: bosh-dns-aliases, version: latest}
+<% end -%>
 
+<% if p("rabbitmq.route_registrar.enabled") || p("rabbitmq.autoscale.enabled") %>
   - name: bpm
     version: 1.1.12
     url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.12
     sha1: 502e9446fa34accaf122ad2b28b6ffa543d5bbca
+  - { name: bosh-dns-aliases, version: latest}
 <% end -%>
 
 <% if p("rabbitmq.autoscale.enabled") -%>
@@ -86,14 +88,6 @@ releases:
     version: 0.4.1
     url:     https://github.com/starkandwayne/rabbitmq-metrics-emitter-release/releases/download/v0.4.1/rabbitmq-metrics-emitter-0.4.1.tgz
     sha1:    05afc6f3559f45e0696c6a3760242045640e0df8
-
-<% if !p("rabbitmq.route_registrar.enabled") -%>
-  - name: bpm
-    version: 1.1.12
-    url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.12
-    sha1: 502e9446fa34accaf122ad2b28b6ffa543d5bbca
-  - { name: bosh-dns-aliases, version: latest}
-<% end -%>
 <% end -%>
 
 stemcells:
@@ -168,9 +162,10 @@ instance_groups:
       type: placeholder
 
 <% if p("rabbitmq.autoscale.enabled") -%>
+<% if !p("rabbitmq.route_registrar.enabled") -%>
   - name:    bpm
     release: bpm
-
+<% end -%>
   - name: loggregator_agent
     release: loggregator-agent
     consumes:
