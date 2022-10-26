@@ -39,8 +39,8 @@ ssl_options.honor_ecc_order      = true
 # https://www.rabbitmq.com/management.html
 <% if ! p("rabbitmq.tls.enabled") || (p("rabbitmq.tls.enabled") && p("rabbitmq.tls.dual-mode")) -%>
 management.tcp.port = <%= p('management.port') %>
-<% end -%>
 management.tcp.compress = true
+<% end -%>
 <% if p("rabbitmq.tls.enabled") -%>
 # https://www.rabbitmq.com/ssl.html
 # Management TLS Listener is on port 5671
