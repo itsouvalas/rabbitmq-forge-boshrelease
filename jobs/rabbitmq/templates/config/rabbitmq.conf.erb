@@ -37,7 +37,9 @@ ssl_options.honor_ecc_order      = true
 
 <% if p('management.enabled') -%>
 # https://www.rabbitmq.com/management.html
+<% if ! p("rabbitmq.tls.enabled") || (p("rabbitmq.tls.enabled") && p("rabbitmq.tls.dual-mode")) -%>
 management.tcp.port = <%= p('management.port') %>
+<% end -%>
 management.tcp.compress = true
 <% if p("rabbitmq.tls.enabled") -%>
 # https://www.rabbitmq.com/ssl.html
