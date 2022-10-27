@@ -27,7 +27,7 @@ meta:
 <% end -%>
 
 
-<% if p("rabbitmq.autoscale.enabled") || p("rabbitmq.autoscale.enabled") -%>
+<% if p("rabbitmq.autoscale.enabled") || p("rabbitmq.tls.enabled") -%>
 variables:
 <% end -%>
 
