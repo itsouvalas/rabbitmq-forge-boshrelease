@@ -14,6 +14,7 @@ meta:
   environment: <%= p('environment') %>
   bosh_env: <%= p('bosh_env') %>
 
+<% if p("rabbitmq.autoscale.enabled") -%>
   cf:
     exodus_path: <%= p('cf.exodus_path') %>
     deployment_name: <%= p('cf.deployment_name') %>
@@ -26,14 +27,14 @@ meta:
   mgmt_port:   <%= p('rabbitmq_metrics_emitter.rmq_management.mgmt_port') %>
   mgmt_scheme: <%= p('rabbitmq_metrics_emitter.rmq_management.mgmt_scheme') %>
   mgmt_host:   <%= p('rabbitmq_metrics_emitter.rmq_management.mgmt_host') %>
-
-<% if p("rabbitmq.route_registrar.enabled") -%>
-params:
-  cf:
-    core_network: <%= p("cf.core_network") %>
 <% end -%>
 
+
+<% if p("rabbitmq.autoscale.enabled") || p("rabbitmq.autoscale.enabled") -%>
 variables:
+<% end -%>
+
+<% if p("rabbitmq.autoscale.enabled") -%>
 - name: rabbitmq_metrics_emitter_crt
   type: certificate
   options:
@@ -45,6 +46,9 @@ variables:
     alternative_name: 
       from: rabbitmq-emitter
       properties: { wildcard: true }
+<% end -%>
+
+<% if p("rabbitmq.tls.enabled") -%>
 - name: rabbitmq_cluster_crt
   type: certificate
   options:
@@ -54,6 +58,13 @@ variables:
     alternative_name: 
       from: rabbitmq-san 
       properties: { wildcard: true }
+<% end -%>
+
+<% if p("rabbitmq.route_registrar.enabled") -%>
+params:
+  cf:
+    core_network: <%= p("cf.core_network") %>
+<% end -%>
 
 features:
   use_dns_addresses: true
@@ -62,14 +73,17 @@ releases:
   - { name: rabbitmq-forge, version: latest }
 <% if p("rabbitmq.route_registrar.enabled") %>
   - { name: routing, version: latest }
-  - { name: bosh-dns-aliases, version: latest}
 <% end -%>
 
+<% if p("rabbitmq.route_registrar.enabled") || p("rabbitmq.autoscale.enabled") %>
   - name: bpm
     version: 1.1.12
     url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.12
     sha1: 502e9446fa34accaf122ad2b28b6ffa543d5bbca
+  - { name: bosh-dns-aliases, version: latest}
+<% end -%>
 
+<% if p("rabbitmq.autoscale.enabled") -%>
   - name: loggregator-agent
     version: 6.3.3
     url: https://bosh.io/d/github.com/cloudfoundry/loggregator-agent-release?v=6.3.3
@@ -79,6 +93,7 @@ releases:
     version: 0.4.1
     url:     https://github.com/starkandwayne/rabbitmq-metrics-emitter-release/releases/download/v0.4.1/rabbitmq-metrics-emitter-0.4.1.tgz
     sha1:    05afc6f3559f45e0696c6a3760242045640e0df8
+<% end -%>
 
 stemcells:
 - alias: default
@@ -124,9 +139,11 @@ instance_groups:
         tls:
           enabled: (( grab meta.rabbitmq.tls.enabled || false ))
           dual-mode: (( grab meta.rabbitmq.tls.dual-mode || false ))
+<% if p("rabbitmq.tls.enabled") -%>
           ca: (( file "/var/vcap/jobs/blacksmith/config/tls/blacksmith_services_ca" ))
           crt: ((rabbitmq_cluster_crt.certificate))
           key: ((rabbitmq_cluster_crt.private_key))
+<% end -%>
 
     provides:
       rabbitmq-servers:
@@ -149,9 +166,11 @@ instance_groups:
     - name: rabbitmq-alias-domain
       type: placeholder
 
+<% if p("rabbitmq.autoscale.enabled") -%>
+<% if !p("rabbitmq.route_registrar.enabled") -%>
   - name:    bpm
     release: bpm
-
+<% end -%>
   - name: loggregator_agent
     release: loggregator-agent
     consumes:
@@ -198,6 +217,7 @@ instance_groups:
     custom_provider_definitions:
     - name: rabbitmq-emitter
       type: address
+<% end -%>
 
 <% if p("rabbitmq.route_registrar.enabled") -%>
   - name: route_registrar
@@ -229,6 +249,9 @@ instance_groups:
       nats-tls:
         from: nats-tls
         deployment: <%= p("cf.deployment_name") %>
+
+  - name:    bpm
+    release: bpm
 
 addons:
 - name: bosh-dns-aliases
