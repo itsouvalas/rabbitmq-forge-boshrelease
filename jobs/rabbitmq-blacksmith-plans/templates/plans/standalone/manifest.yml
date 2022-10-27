@@ -1,5 +1,9 @@
 ---
 meta:
+  azs:
+    <% p("azs").each do |az| %>
+    <%= "- #{az}" -%>
+    <% end %>
   size: default
   disk_config: {}
   username: (( vault $CREDENTIALS "/rabbitmq/system:username" ))
@@ -106,7 +110,7 @@ update:
 instance_groups:
 - name: standalone
   instances: 1
-  azs: [z1]
+  azs: (( grab meta.azs ))
   networks: [name: (( grab meta.net || "rabbitmq-service" ))]
   stemcell: default
 

@@ -134,6 +134,11 @@ properties:
     description: Network for RabbitMQ Service Deployment
     default: rabbitmq-service
 
+  azs:
+    description: Availability Zones for RabbitMQ 
+    default:
+     - z1
+
   # When using dashboard
   cf.core_network:
     description: CF Core network
