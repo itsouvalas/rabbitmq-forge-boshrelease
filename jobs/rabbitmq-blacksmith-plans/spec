@@ -24,6 +24,10 @@ templates:
   tls/loggregator.key:              tls/loggregator.key
 
 properties:
+  persistent_disk_pool:
+    description: BOSH Cloud Config Persistent Disk Pool Name (optional)
+    default: ""
+
   service.id:
     description: Machine-friendly name for this service.
     default: rabbitmq

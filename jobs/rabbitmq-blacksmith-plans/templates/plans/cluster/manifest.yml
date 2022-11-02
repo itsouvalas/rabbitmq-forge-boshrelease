@@ -110,6 +110,9 @@ update:
 
 instance_groups:
 - name: node
+  <% unless p("persistent_disk_pool").empty? -%>
+  persistent_disk_pool: <%= p("persistent_disk_pool") %>
+  <% end -%>
   instances: (( grab meta.instances ))
   azs: (( grab meta.azs ))
   networks: [name: (( grab meta.net || 'rabbitmq-service' ))]
