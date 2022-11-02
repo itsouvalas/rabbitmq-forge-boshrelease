@@ -30,7 +30,6 @@ meta:
   mgmt_host:   <%= p('rabbitmq_metrics_emitter.rmq_management.mgmt_host') %>
 <% end -%>
 
-
 <% if p("rabbitmq.autoscale.enabled") || p("rabbitmq.tls.enabled") -%>
 variables:
 <% end -%>
@@ -109,8 +108,8 @@ update:
 
 instance_groups:
 - name: standalone
-  <% unless p("persistent_disk_pool").empty? -%>
-  persistent_disk_pool: <%= p("persistent_disk_pool") %>
+  <% unless p("persistent_disk_type").empty? -%>
+  persistent_disk_type: <%= p("persistent_disk_type") %>
   <% end -%>
   instances: 1
   azs: (( grab meta.azs ))

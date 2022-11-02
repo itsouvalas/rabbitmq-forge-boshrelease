@@ -24,8 +24,8 @@ templates:
   tls/loggregator.key:              tls/loggregator.key
 
 properties:
-  persistent_disk_pool:
-    description: BOSH Cloud Config Persistent Disk Pool Name (optional)
+  persistent_disk_type:
+    description: BOSH Cloud Config Persistent Disk Type Name (optional)
     default: ""
 
   service.id:
