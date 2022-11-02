@@ -108,9 +108,6 @@ update:
 
 instance_groups:
 - name: standalone
-  <% unless p("persistent_disk_type").empty? -%>
-  persistent_disk_type: <%= p("persistent_disk_type") %>
-  <% end -%>
   instances: 1
   azs: (( grab meta.azs ))
   networks: [name: (( grab meta.net || "rabbitmq-service" ))]
@@ -118,9 +115,13 @@ instance_groups:
 
   vm_type: (( grab meta.size ))
 
+  <% unless p("persistent_disk_type").empty? -%>
+  persistent_disk_type: <%= p("persistent_disk_type") %>
+  <% else %>
   # This is a workaround to make sure only one of `persistent_disk`
   # and `persistent_disk_type` is defined.
   .: (( inject meta.disk_config ))
+  <% end -%>
 
   jobs:
   - name:    rabbitmq
