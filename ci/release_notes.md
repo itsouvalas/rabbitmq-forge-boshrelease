@@ -1,0 +1,1 @@
+Either persistent_disk_type or disk_config
