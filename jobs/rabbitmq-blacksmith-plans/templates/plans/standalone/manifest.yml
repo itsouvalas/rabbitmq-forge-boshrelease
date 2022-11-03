@@ -111,13 +111,7 @@ instance_groups:
 
   vm_type: (( grab meta.size ))
 
-  <% unless p("persistent_disk_type").empty? -%>
-  persistent_disk_type: <%= p("persistent_disk_type") %>
-  <% else %>
-  # This is a workaround to make sure only one of `persistent_disk`
-  # and `persistent_disk_type` is defined.
-  .: (( inject meta.disk_config ))
-  <% end -%>
+  .: (( inject meta.disk_config )) # Accounts for persistent_disk_type option
 
   jobs:
   - name:    rabbitmq

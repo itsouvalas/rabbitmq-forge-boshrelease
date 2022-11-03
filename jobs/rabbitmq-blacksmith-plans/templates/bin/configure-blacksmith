@@ -49,7 +49,7 @@ meta:
   instances: <%= (plan["type"] == "cluster") ? [3, plan["instances"].to_i].max : 1 %>
 
   azs:
-    <% (plan["azs"].empty? ? p("azs") : plan["azs"]).each do |az| -%>
+    <% (plan["azs"].nil? ? p("azs") : plan["azs"]).each do |az| -%>
     - <%= az %>
     <% end -%>
 
