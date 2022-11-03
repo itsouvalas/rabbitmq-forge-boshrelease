@@ -53,7 +53,7 @@ meta:
     - <%= az %>
     <% end -%>
 
-<% unless plan("persistent_disk_type").empty? -%>
+<% unless plan["persistent_disk_type"].empty? -%>
   disk_config: 
     persistent_disk_type: <%= plan("persistent_disk_type") %>
 <% else %>
