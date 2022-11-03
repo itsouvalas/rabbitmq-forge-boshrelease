@@ -46,7 +46,7 @@ meta:
 
   net:  <%= plan["network"] || "rabbitmq-service" %>
 
-  instances: <%= (plan["type"] == "cluster") ? [3, plan["instances"].to_i].max) : 1 %>
+  instances: <%= (plan["type"] == "cluster") ? [3, plan["instances"].to_i].max : 1 %>
 
   azs:
     <% (plan["azs"].empty? ? p("azs") : plan["azs"]).each do |az| -%>
