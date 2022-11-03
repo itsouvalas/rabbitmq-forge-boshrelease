@@ -1,10 +1,5 @@
 ---
 meta:
-  azs:
-    <% p("azs").each do |az| -%>
-    - <%= az %>
-    <% end -%>
-
   size: default
   disk_config: {}
   username: (( vault $CREDENTIALS "/rabbitmq/system:username" ))
