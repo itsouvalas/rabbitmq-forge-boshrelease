@@ -1,2 +1,0 @@
-bugfixes
-Release notes.
