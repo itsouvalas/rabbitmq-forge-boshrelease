@@ -55,7 +55,7 @@ meta:
 
 <% unless plan["persistent_disk_type"].nil? -%>
   disk_config: 
-    persistent_disk_type: <%= plan("persistent_disk_type") %>
+    persistent_disk_type: <%= plan["persistent_disk_type"] %>
 <% else %>
   <% if plan["persist"] %>
   persistent: true # TODO: this value is currently ignored and persistence is enabled by default.
