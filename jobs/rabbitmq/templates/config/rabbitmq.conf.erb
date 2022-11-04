@@ -1,10 +1,18 @@
-<% 
-if p("rabbitmq.tls.enabled") != true || (p("rabbitmq.tls.enabled") == true && p("rabbitmq.tls.dual-mode") == true) -%>
+<%
+  tls_enabled = p("rabbitmq.tls.enabled") == true
+  dual_mode_enabled = p("rabbitmq.tls.dual-mode") == true
+  management_enabled = p('management.enabled') == true
+-%>
+
+<% if ! tls_enabled || (tls_enabled && dual_mode_enabled) -%>
 listeners.tcp.default = <%= p('rabbitmq.port') %> # 5672
+<% end -%>
+
+<% if (tls_enabled && ! dual_mode_enabled) -%>
 listeners.tcp = none # disables non-tls
 <% end -%>
 
-<% if p("rabbitmq.tls.enabled") == true -%>
+<% if tls_enabled -%>
 # https://www.rabbitmq.com/ssl.html
 
 # TLS Listener is on port 5671
@@ -33,14 +41,14 @@ ssl_options.honor_ecc_order      = true
 # Troubleshooting: https://www.rabbitmq.com/troubleshooting-ssl.html
 <% end -%>
 
-<% if p('management.enabled') == true -%>
+<% if management_enabled -%>
 # https://www.rabbitmq.com/management.html
-<% if p("rabbitmq.tls.enabled") != true || (p("rabbitmq.tls.enabled") == true && p("rabbitmq.tls.dual-mode") == true) -%>
+<% if ! tls_enabled || (tls_enabled && dual_mode_enabled) -%>
 management.tcp.port = <%= p('management.port') %>
 management.tcp.compress = true
 <% end -%>
 
-<% if p("rabbitmq.tls.enabled") == true -%>
+<% if tls_enabled -%>
 # https://www.rabbitmq.com/ssl.html
 # Management TLS Listener is on port 5671
 management.ssl.port = <%= p("management.tls.port") %>
