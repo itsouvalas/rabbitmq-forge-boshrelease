@@ -1,10 +1,6 @@
 ---
 meta:
   environment: <%= p('environment') %>
-  azs:
-    <% p("azs").each do |az| -%>
-    - <%= az %>
-    <% end -%>
 
 <% if p("rabbitmq.autoscale.enabled") -%>
   cf:

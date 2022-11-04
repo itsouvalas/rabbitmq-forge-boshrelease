@@ -30,7 +30,6 @@ meta:
 <% if p("rabbitmq.autoscale.enabled") || p("rabbitmq.tls.enabled") -%>
 variables:
 <% end -%>
-
 <% if p("rabbitmq.autoscale.enabled") -%>
 - name: rabbitmq_metrics_emitter_crt
   type: certificate
@@ -44,7 +43,6 @@ variables:
       from: rabbitmq-emitter
       properties: { wildcard: true }
 <% end -%>
-
 <% if p("rabbitmq.tls.enabled") -%>
 - name: rabbitmq_cluster_crt
   type: certificate
@@ -54,7 +52,8 @@ variables:
   consumes:
     alternative_name: 
       from: rabbitmq-san 
-      properties: { wildcard: true }
+      properties: 
+        wildcard: true
 <% end -%>
 
 <% if p("rabbitmq.route_registrar.enabled") -%>
@@ -66,43 +65,6 @@ params:
 features:
   use_dns_addresses: true
 
-releases:
-  - { name: rabbitmq-forge, version: latest }
-<% if p("rabbitmq.route_registrar.enabled") %>
-  - { name: routing, version: latest }
-<% end -%>
-
-<% if p("rabbitmq.route_registrar.enabled") || p("rabbitmq.autoscale.enabled") %>
-  - name: bpm
-    version: 1.1.12
-    url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.12
-    sha1: 502e9446fa34accaf122ad2b28b6ffa543d5bbca
-  - { name: bosh-dns-aliases, version: latest}
-<% end -%>
-
-<% if p("rabbitmq.autoscale.enabled") -%>
-  - name:    loggregator-agent
-    version: 6.3.4
-    url:     https://bosh.io/d/github.com/cloudfoundry/loggregator-agent-release?v=6.3.4
-    sha1:    9dd3ad00fb49bebd8290fad8ce7b2e4992dac31f
-  
-  - name: rabbitmq-metrics-emitter
-    version: 0.4.1
-    url:     https://github.com/starkandwayne/rabbitmq-metrics-emitter-release/releases/download/v0.4.1/rabbitmq-metrics-emitter-0.4.1.tgz
-    sha1:    05afc6f3559f45e0696c6a3760242045640e0df8
-<% end -%>
-
-stemcells:
-- alias: default
-  os: ubuntu-bionic
-  version: latest
-
-update:
-  canaries: 1
-  max_in_flight: 10
-  canary_watch_time: 1000-30000
-  update_watch_time: 1000-30000
-
 instance_groups:
 - name: node
   instances: (( grab meta.instances ))
@@ -110,7 +72,6 @@ instance_groups:
   networks: [name: (( grab meta.net || 'rabbitmq-service' ))]
   stemcell: default
   vm_type: (( grab meta.size ))
-
   .: (( inject meta.disk_config )) # Accounts for persistent_disk_type option
 
   jobs:
@@ -138,7 +99,6 @@ instance_groups:
           crt: ((rabbitmq_cluster_crt.certificate))
           key: ((rabbitmq_cluster_crt.private_key))
 <% end -%>
-
     provides:
       rabbitmq-servers:
         as: rabbitmq-servers
@@ -159,7 +119,6 @@ instance_groups:
       type: address
     - name: rabbitmq-alias-domain
       type: placeholder
-
 <% if p("rabbitmq.autoscale.enabled") -%>
 <% if !p("rabbitmq.route_registrar.enabled") -%>
   - name:    bpm
@@ -183,7 +142,6 @@ instance_groups:
         ca_cert: (( file "/var/vcap/jobs/blacksmith/config/tls/blacksmith_services_ca" ))
         cert:    ((rabbitmq_metrics_emitter_crt.certificate))
         key:     ((rabbitmq_metrics_emitter_crt.private_key))
-
   - name: rabbitmq-metrics-emitter
     release: rabbitmq-metrics-emitter
     properties:
@@ -203,7 +161,6 @@ instance_groups:
             cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.crt" ))
             key: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.key" ))
             ca_cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.ca" ))
-
     provides:
       rabbitmq-emitter:
         as: rabbitmq-emitter
@@ -212,7 +169,6 @@ instance_groups:
     - name: rabbitmq-emitter
       type: address
 <% end -%>
-
 <% if p("rabbitmq.route_registrar.enabled") -%>
   - name: route_registrar
     release: routing
@@ -229,20 +185,20 @@ instance_groups:
           uris:
           - (( concat name ".<%= p("cf.system_domain") %>" ))
           registration_interval: 10s
-<% if p("rabbitmq.route_registrar.tls.enabled") == "true" %>
+<% if p("rabbitmq.route_registrar.tls.enabled") == "true" -%>
           tls_port: 15671
           server_cert_domain_san: (( concat name ".<%= p("cf.system_domain") %>" ))
-<% else %>
+<% else -%>
           port: 15672
-<% end %>
+<% end -%>
 
     consumes:
       nats:
         from: nats
-        deployment: <%= p("cf.deployment_name") %>
+        deployment: <%= p("cf.deployment_name") -%>
       nats-tls:
         from: nats-tls
-        deployment: <%= p("cf.deployment_name") %>
+        deployment: <%= p("cf.deployment_name") -%>
 
   - name:    bpm
     release: bpm
@@ -272,5 +228,40 @@ addons:
           instance_group: nats
           network: (( grab params.cf.core_network ))
           query: _
-<% end %>
+<% end -%>
+
+releases:
+  - { name: rabbitmq-forge, version: latest }
+<% if p("rabbitmq.route_registrar.enabled") -%>
+  - { name: routing, version: latest }
+<% end -%>
+<% if p("rabbitmq.route_registrar.enabled") || p("rabbitmq.autoscale.enabled") -%>
+  - name: bpm
+    version: 1.1.12
+    url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.12
+    sha1: 502e9446fa34accaf122ad2b28b6ffa543d5bbca
+  - name: bosh-dns-aliases
+    version: latest
+<% end -%>
+<% if p("rabbitmq.autoscale.enabled") -%>
+  - name:    loggregator-agent
+    version: 6.3.4
+    url:     https://bosh.io/d/github.com/cloudfoundry/loggregator-agent-release?v=6.3.4
+    sha1:    9dd3ad00fb49bebd8290fad8ce7b2e4992dac31f
+  - name: rabbitmq-metrics-emitter
+    version: 0.4.1
+    url:     https://github.com/starkandwayne/rabbitmq-metrics-emitter-release/releases/download/v0.4.1/rabbitmq-metrics-emitter-0.4.1.tgz
+    sha1:    05afc6f3559f45e0696c6a3760242045640e0df8
+<% end -%>
+
+stemcells:
+- alias: default
+  os: ubuntu-bionic
+  version: latest
+
+update:
+  canaries: 1
+  max_in_flight: 10
+  canary_watch_time: 1000-30000
+  update_watch_time: 1000-30000
 
