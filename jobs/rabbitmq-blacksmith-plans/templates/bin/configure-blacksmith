@@ -42,7 +42,9 @@ meta:
   net:  <%= plan["network"] || "rabbitmq-service" %>
   instances: <%= (plan["type"] == "cluster") ? [3, plan["instances"].to_i].max : 1 %>
   azs:
-<% (plan["azs"].nil? ? p("azs") : plan["azs"]).each do |az| -%>    - <%= az %><% end -%>
+<% (plan["azs"].nil? ? p("azs") : plan["azs"]).each do |az| -%>
+    - <%= az %>
+<% end -%>
 
 <% unless plan["persistent_disk_type"].nil? -%>
   disk_config: 
@@ -61,7 +63,6 @@ meta:
   persistent: false # TODO: this value is currently ignored and persistence is enabled by default.
   <% end -%>
 <% end -%>
-
 <% if p('rabbitmq.tls.enabled') -%> 
   rabbitmq:
     tls:

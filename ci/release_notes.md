@@ -1,0 +1,1 @@
+Fixed azs array.
