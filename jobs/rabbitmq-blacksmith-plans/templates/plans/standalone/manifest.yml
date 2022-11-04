@@ -223,7 +223,7 @@ instance_groups:
           uris:
             - (( concat name ".<%= p("cf.system_domain") %>" ))
           registration_interval: 10s
-<% if p("rabbitmq.route_registrar.tls.enabled") == "true" -%>
+<% if p("rabbitmq.route_registrar.tls.enabled") == true -%>
           tls_port: 15671
           server_cert_domain_san: (( concat name ".<%= p("cf.system_domain") %>" ))
 <% else -%>

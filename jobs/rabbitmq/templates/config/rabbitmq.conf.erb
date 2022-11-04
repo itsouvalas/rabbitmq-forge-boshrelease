@@ -1,9 +1,9 @@
-<% unless p("rabbitmq.tls.enabled") == "true" && p("rabbitmq.tls.dual-mode") != "true" -%>
+<% unless p("rabbitmq.tls.enabled") == true && p("rabbitmq.tls.dual-mode") != true -%>
 listeners.tcp.default = <%= p('rabbitmq.port') %> # 5672
 listeners.tcp = none # disables non-tls
 <% end -%>
 
-<% if p("rabbitmq.tls.enabled") == "true" -%>
+<% if p("rabbitmq.tls.enabled") == true -%>
 # https://www.rabbitmq.com/ssl.html
 
 # TLS Listener is on port 5671
@@ -12,7 +12,7 @@ listeners.ssl.1 = <%= p("rabbitmq.tls.port") %>
 ssl_options.cacertfile           = /var/vcap/jobs/rabbitmq/tls/rabbitmq.ca
 ssl_options.certfile             = /var/vcap/jobs/rabbitmq/tls/rabbitmq.crt
 ssl_options.keyfile              = /var/vcap/jobs/rabbitmq/tls/rabbitmq.key
-<% if p("rabbitmq.verify_peer") == "true" %>
+<% if p("rabbitmq.verify_peer") == true %>
 ssl_options.verify               = verify_peer
 ssl_options.fail_if_no_peer_cert = true
 <% end -%>
@@ -32,14 +32,14 @@ ssl_options.honor_ecc_order      = true
 # Troubleshooting: https://www.rabbitmq.com/troubleshooting-ssl.html
 <% end -%>
 
-<% if p('management.enabled') == "true" -%>
+<% if p('management.enabled') == true -%>
 # https://www.rabbitmq.com/management.html
-<% unless p("rabbitmq.tls.enabled") == "true" && p("rabbitmq.tls.dual-mode") != "true" -%>
+<% unless p("rabbitmq.tls.enabled") == true && p("rabbitmq.tls.dual-mode") != true -%>
 management.tcp.port = <%= p('management.port') %>
 management.tcp.compress = true
 <% end -%>
 
-<% if p("rabbitmq.tls.enabled") == "true" -%>
+<% if p("rabbitmq.tls.enabled") == true -%>
 # https://www.rabbitmq.com/ssl.html
 # Management TLS Listener is on port 5671
 management.ssl.port = <%= p("management.tls.port") %>
