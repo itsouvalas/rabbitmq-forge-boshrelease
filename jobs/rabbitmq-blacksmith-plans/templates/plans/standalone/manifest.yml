@@ -56,7 +56,7 @@ variables:
   options:
     ca: (( concat "/" meta.bosh_env "-bosh/" meta.environment "-blacksmith/blacksmith_services_ca" ))
     common_name: (( concat meta.environment "-rabbitmq-standalone.bosh" ))
-    alternative_names: [((internal_ip))]
+    alternative_names: ((internal_ip))
 
   consumes:
     alternative_name: 
