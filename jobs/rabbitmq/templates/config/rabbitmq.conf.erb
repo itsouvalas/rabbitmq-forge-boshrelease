@@ -12,7 +12,7 @@ listeners.tcp.default = <%= p('rabbitmq.port') %> # 5672
 listeners.tcp = none # disables non-tls
 <% end -%>
 
-<% if tls_enabled -%>
+<% if p("rabbitmq.tls.enabled") -%>
 # https://www.rabbitmq.com/ssl.html
 
 # TLS Listener is on port 5671
