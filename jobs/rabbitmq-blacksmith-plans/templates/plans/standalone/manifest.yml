@@ -62,8 +62,6 @@ variables:
       from: rabbitmq-san 
       properties:
         wildcard: true
-
-    alternative_name:
       from: rabbitmq-ip
 
 <% end -%>
