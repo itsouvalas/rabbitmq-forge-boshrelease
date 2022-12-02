@@ -37,7 +37,6 @@ variables:
   options:
     ca: (( concat "/" meta.bosh_env "-bosh/" meta.environment "-blacksmith/blacksmith_services_ca" ))
     common_name: (( concat meta.environment "-rabbitmq-metrics-emitter.bosh" ))
-    alternative_names: 
 
   consumes:
     common_name:
