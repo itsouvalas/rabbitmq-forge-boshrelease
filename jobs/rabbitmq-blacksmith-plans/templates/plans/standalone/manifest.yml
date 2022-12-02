@@ -37,6 +37,7 @@ variables:
   options:
     ca: (( concat "/" meta.bosh_env "-bosh/" meta.environment "-blacksmith/blacksmith_services_ca" ))
     common_name: (( concat meta.environment "-rabbitmq-metrics-emitter.bosh" ))
+    alternative_names: 
 
   consumes:
     common_name:
@@ -60,9 +61,12 @@ variables:
   consumes:
     alternative_name: 
       from: rabbitmq-san 
-
       properties:
         wildcard: true
+
+    alternative_name:
+      from: rabbitmq-ip
+
 <% end -%>
 
 <% if p("rabbitmq.route_registrar.enabled") -%>
@@ -127,6 +131,10 @@ instance_groups:
         as: rabbitmq-san
         ip_addresses: false
 
+      rabbitmq-ip:
+        as: rabbitmq-ip
+        ip_addresses: true
+
       rabbitmq-alias-domain:
         aliases:
           - domain: "_.rabbitmq_standalone.bosh"
@@ -139,6 +147,8 @@ instance_groups:
 
     custom_provider_definitions:
       - name: rabbitmq-san  
+        type: address
+      - name: rabbitmq-ip  
         type: address
       - name: rabbitmq-alias-domain
         type: placeholder
