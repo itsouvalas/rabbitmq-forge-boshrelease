@@ -59,10 +59,9 @@ variables:
 
   consumes:
     alternative_name: 
-      from: rabbitmq-san 
-      properties:
-        wildcard: true
       from: rabbitmq-ip
+      properties:
+        ip_addresses: true
 
 <% end -%>
 
