@@ -58,10 +58,10 @@ variables:
  
   consumes:
     common_name:
-      from: rabbitmq-servers
+      from: rabbitmq-san
 
     alternative_name:
-      from: rabbitmq-servers
+      from: rabbitmq-san
       properties:
         wildcard: true
 
