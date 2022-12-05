@@ -55,11 +55,8 @@ variables:
 
   options:
     ca: (( concat "/" meta.bosh_env "-bosh/" meta.environment "-blacksmith/blacksmith_services_ca" ))
- 
+    common_name: (( concat meta.environment "-rabbitmq-cluster.bosh" ))
   consumes:
-    common_name:
-      from: rabbitmq-san
-
     alternative_name:
       from: rabbitmq-san
       properties:
