@@ -10,7 +10,6 @@ meta:
   password-app: (( vault $CREDENTIALS "/rabbitmq/app:password" ))
   environment: <%= p('environment') %>
   bosh_env: <%= p('bosh_env') %>
-  dnsname: <%= p('rabbitmq.hostname') %>
 
 <% if p("rabbitmq.autoscale.enabled") -%>
   cf:
