@@ -55,8 +55,15 @@ variables:
 
   options:
     ca: (( concat "/" meta.bosh_env "-bosh/" meta.environment "-blacksmith/blacksmith_services_ca" ))
-    common_name: (( concat meta.environment "-rabbitmq-standalone.bosh" ))
-    alternative_names: (( concat "standalone.blacksmith.rabbitmq-single-node" meta.params.instance_id ))
+ 
+  consumes:
+    common_name:
+      from: rabbitmq-servers
+
+    alternative_name:
+      from: rabbitmq-servers
+      properties:
+        wildcard: true
 
 <% end -%>
 
@@ -267,14 +274,6 @@ addons:
           instance_group: nats
           network: (( grab params.cf.core_network ))
           query: _
-      
-      - domain: (( concat "standalone.blacksmith.rabbitmq-single-node-" meta.params.instance_id ))
-        targets:
-        - deployment: (( grab meta.cf.deployment_name ))
-          domain: bosh
-          instance_groups: standalone
-          network: (( grab meta.net || "rabbitmq-service" ))
-          query: '*'
 
 <% end -%>
 
