@@ -126,6 +126,8 @@ properties:
   rabbitmq.autoscale.enabled:
     description: Enable autoscaling based on rabbitmq queue depth
     default: false
+  rabbitmq.hostname:
+    description: Pulls the DNS hostname of the deployed service instance
 
   rabbitmq.route_registrar.enabled:
     description: Enable registration of dashbaord url with cf
