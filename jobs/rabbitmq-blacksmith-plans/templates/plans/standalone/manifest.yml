@@ -55,7 +55,8 @@ variables:
 
   options:
     ca: (( concat "/" meta.bosh_env "-bosh/" meta.environment "-blacksmith/blacksmith_services_ca" ))
-    common_name: (( concat meta.environment "-rabbitmq-cluster.bosh" ))
+    common_name: (( concat meta.environment "-rabbitmq-standalone.bosh" ))
+
   consumes:
     alternative_name:
       from: rabbitmq-san
@@ -107,6 +108,9 @@ instance_groups:
         app:
           user: (( grab meta.username-app ))
           pass: (( grab meta.password-app ))
+
+        consumes:
+          hostname: {from: rabbitmq-san}
 
         tls:
           enabled: (( grab meta.rabbitmq.tls.enabled || false ))
