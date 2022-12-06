@@ -48,6 +48,10 @@ properties:
     description: A global limit on the number of RabbitMQ services (regardless of the plan); 0 = unlimited.
     default: 0
   
+  service.type:
+    description: Differentiates between standalone and cluster type
+    default: standalone
+  
   environment:
     description: The environment name of the cloudfoundry/bosh deployment
 
