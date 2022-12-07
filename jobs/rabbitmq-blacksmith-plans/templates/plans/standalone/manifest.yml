@@ -62,7 +62,6 @@ variables:
       from: rabbitmq-san
       properties:
         wildcard: true
-
 <% end -%>
 
 <% if p("rabbitmq.route_registrar.enabled") -%>
@@ -77,10 +76,9 @@ features:
 instance_groups:
 - name: standalone
   instances: 1
+  azs: (( grab meta.azs ))
   stemcell: default
   vm_type: (( grab meta.size ))
-
-  azs: (( grab meta.azs ))
 
   networks: 
     - name: (( grab meta.net || "rabbitmq-service" ))
@@ -108,9 +106,6 @@ instance_groups:
         app:
           user: (( grab meta.username-app ))
           pass: (( grab meta.password-app ))
-
-        consumes:
-          hostname: {from: rabbitmq-san}
 
         tls:
           enabled: (( grab meta.rabbitmq.tls.enabled || false ))
@@ -141,7 +136,7 @@ instance_groups:
         ip_addresses: false
 
     custom_provider_definitions:
-      - name: rabbitmq-san  
+      - name: rabbitmq-san
         type: address
       - name: rabbitmq-alias-domain
         type: placeholder
@@ -224,7 +219,7 @@ instance_groups:
         routes:
         - name: (( grab name ))
           uris:
-            - (( concat name ".<%= p("cf.system_domain") %>" ))
+          - (( concat name ".<%= p("cf.system_domain") %>" ))
           registration_interval: 10s
 <% if p("rabbitmq.route_registrar.tls.enabled") == true -%>
           tls_port: 15671
@@ -236,11 +231,11 @@ instance_groups:
     consumes:
       nats:
         from: nats
-        deployment: <%= p("cf.deployment_name") %>
+        deployment: <%= p("cf.deployment_name") -%>
 
       nats-tls:
         from: nats-tls
-        deployment: <%= p("cf.deployment_name") %>
+        deployment: <%= p("cf.deployment_name") -%>
 
   - name:    bpm
     release: bpm
@@ -294,10 +289,10 @@ releases:
     version: latest
 <% end -%>
 <% if p("rabbitmq.autoscale.enabled") -%>
-  - name: loggregator-agent
+  - name:    loggregator-agent
     version: 6.3.4
-    url: https://bosh.io/d/github.com/cloudfoundry/loggregator-agent-release?v=6.3.4
-    sha1: 9dd3ad00fb49bebd8290fad8ce7b2e4992dac31f
+    url:     https://bosh.io/d/github.com/cloudfoundry/loggregator-agent-release?v=6.3.4
+    sha1:    9dd3ad00fb49bebd8290fad8ce7b2e4992dac31f
   - name: rabbitmq-metrics-emitter
     version: 0.4.1
     url:     https://github.com/starkandwayne/rabbitmq-metrics-emitter-release/releases/download/v0.4.1/rabbitmq-metrics-emitter-0.4.1.tgz

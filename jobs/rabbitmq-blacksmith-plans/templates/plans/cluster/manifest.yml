@@ -30,6 +30,7 @@ meta:
 <% if p("rabbitmq.autoscale.enabled") || p("rabbitmq.tls.enabled") -%>
 variables:
 <% end -%>
+
 <% if p("rabbitmq.autoscale.enabled") -%>
 - name: rabbitmq_metrics_emitter_crt
   type: certificate
@@ -45,7 +46,7 @@ variables:
     alternative_name: 
       from: rabbitmq-emitter
 
-      properties: 
+      properties:
         wildcard: true
 <% end -%>
 
@@ -58,10 +59,9 @@ variables:
     common_name: (( concat meta.environment "-rabbitmq-cluster.bosh" ))
 
   consumes:
-    alternative_name: 
-      from: rabbitmq-san 
-
-      properties: 
+    alternative_name:
+      from: rabbitmq-san
+      properties:
         wildcard: true
 <% end -%>
 
@@ -82,7 +82,7 @@ instance_groups:
   vm_type: (( grab meta.size ))
 
   networks: 
-    - name: (( grab meta.net || 'rabbitmq-service' ))
+    - name: (( grab meta.net || "rabbitmq-service" ))
 
   .: (( inject meta.disk_config )) # Accounts for persistent_disk_type option
 
@@ -141,12 +141,13 @@ instance_groups:
         type: address
       - name: rabbitmq-alias-domain
         type: placeholder
-
 <% if p("rabbitmq.autoscale.enabled") -%>
+
 <% if !p("rabbitmq.route_registrar.enabled") -%>
   - name:    bpm
     release: bpm
 <% end -%>
+
   - name: loggregator_agent
     release: loggregator-agent
 
@@ -255,6 +256,7 @@ addons:
     properties:
       aliases:
       - domain: nats.service.cf.internal
+
         targets:
         - deployment: (( grab meta.cf.deployment_name ))
           domain: bosh
@@ -262,12 +264,14 @@ addons:
           network: (( grab params.cf.core_network ))
           query: '*'
       - domain: _.nats.service.cf.internal
+
         targets:
         - deployment: (( grab meta.cf.deployment_name ))
           domain: bosh
           instance_group: nats
           network: (( grab params.cf.core_network ))
           query: _
+
 <% end -%>
 
 releases:
