@@ -56,6 +56,7 @@ variables:
   options:
     ca: (( concat "/" meta.bosh_env "-bosh/" meta.environment "-blacksmith/blacksmith_services_ca" ))
     common_name: (( concat meta.environment "-rabbitmq-standalone.bosh" ))
+    alternative_names: [(( concat name ".<%= p("cf.system_domain") %>" ))]
   consumes:
     alternative_name:
       from: rabbitmq-san
@@ -222,9 +223,7 @@ instance_groups:
           registration_interval: 10s
 <% if p("rabbitmq.route_registrar.tls.enabled") == true -%>
           tls_port: 15671
-          consumes:
-            server_cert_domain_san: {from: rabbitmq-san }
-
+          server_cert_domain_san: (( concat name ".<%= p("cf.system_domain") %>" ))
 <% else -%>
           port: 15672
 <% end -%>
