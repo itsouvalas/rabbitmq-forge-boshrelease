@@ -223,7 +223,9 @@ instance_groups:
           registration_interval: 10s
 <% if p("rabbitmq.route_registrar.tls.enabled") == true -%>
           tls_port: 15671
-          server_cert_domain_san: (( concat name ".<%= p("cf.system_domain") %>" ))
+          consumes:
+            server_cert_domain_san: {from: rabbitmq-san }
+
 <% else -%>
           port: 15672
 <% end -%>
