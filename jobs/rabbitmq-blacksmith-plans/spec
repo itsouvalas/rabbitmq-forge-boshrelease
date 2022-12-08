@@ -48,6 +48,10 @@ properties:
     description: A global limit on the number of RabbitMQ services (regardless of the plan); 0 = unlimited.
     default: 0
   
+  service.type:
+    description: Differentiates between standalone and cluster type
+    default: standalone
+  
   environment:
     description: The environment name of the cloudfoundry/bosh deployment
 
@@ -126,6 +130,8 @@ properties:
   rabbitmq.autoscale.enabled:
     description: Enable autoscaling based on rabbitmq queue depth
     default: false
+  rabbitmq.hostname:
+    description: Pulls the DNS hostname of the deployed service instance
 
   rabbitmq.route_registrar.enabled:
     description: Enable registration of dashbaord url with cf
