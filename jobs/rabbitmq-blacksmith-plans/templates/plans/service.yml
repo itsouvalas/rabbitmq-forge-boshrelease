@@ -3,6 +3,7 @@ id:  <%= p('service.id') %>
 name: <%= p('service.name') %>
 description: |-
   <%= p('service.description') %>
+type: <%= p('service.type') %>
 tags:
 <% p('service.tags', []).each do |tag| -%>
   - <%= tag %>
