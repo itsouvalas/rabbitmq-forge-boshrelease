@@ -57,7 +57,7 @@ variables:
   options:
     ca: (( concat "/" meta.bosh_env "-bosh/" meta.environment "-blacksmith/blacksmith_services_ca" ))
     common_name: (( concat meta.environment "-rabbitmq-cluster.bosh" ))
-
+    alternative_names: [(( concat name ".<%= p("cf.system_domain") %>" ))]
   consumes:
     alternative_name:
       from: rabbitmq-san
