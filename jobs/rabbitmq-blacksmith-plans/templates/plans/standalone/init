@@ -10,4 +10,6 @@ safe gen $CREDENTIALS/rabbitmq/monitoring password
 safe gen $CREDENTIALS/rabbitmq/app username
 safe gen $CREDENTIALS/rabbitmq/app password
 
+safe gen $CREDENTIALS/rabbitmq/erlang cookie
+
 exit 0

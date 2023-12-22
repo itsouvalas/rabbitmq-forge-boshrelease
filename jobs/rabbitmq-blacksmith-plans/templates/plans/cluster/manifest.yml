@@ -11,6 +11,7 @@ meta:
   password-app: (( vault $CREDENTIALS "/rabbitmq/app:password" ))
   environment: <%= p('environment') %>
   bosh_env: <%= p('bosh_env') %>
+  erlang_cookie: (( vault $CREDENTIALS "/rabbitmq/erlang:cookie" ))
 
 <% if p("rabbitmq.autoscale.enabled") -%>
   cf:
@@ -91,6 +92,8 @@ instance_groups:
     release: rabbitmq-forge
 
     properties:
+      erlang:
+        cookie: (( grab meta.erlang_cookie ))
       rabbitmq:
         plan: cluster
         vhost: (( grab meta.params.instance_id || "/" ))
