@@ -2,7 +2,7 @@
 
 set -ex
 
-VERSION=3.12.0
+VERSION=3.13.3
 
 tar -xf $BOSH_COMPILE_TARGET/rabbitmq/rabbitmq-server-generic-unix-${VERSION}.tar.xz
 
