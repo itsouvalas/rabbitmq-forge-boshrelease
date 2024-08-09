@@ -57,6 +57,10 @@ properties:
 
   bosh_env:
     description: The environment name of the bosh deployment if different from cloudfoundry (defaults to environment)
+  
+  plugins:
+    description: List of RabbitMQ plugins to enable
+    default: []
 
   cf.exodus_path:
     description: The vault path pointing to the cf deployment

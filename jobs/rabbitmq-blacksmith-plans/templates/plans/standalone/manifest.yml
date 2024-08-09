@@ -11,6 +11,7 @@ meta:
   environment: <%= p('environment') %>
   bosh_env: <%= p('bosh_env') %>
   erlang_cookie: (( vault $CREDENTIALS "/rabbitmq/erlang:cookie" ))
+  plugins: <%= p('plugins') %>
 
 <% if p("rabbitmq.autoscale.enabled") -%>
   cf:
@@ -91,6 +92,7 @@ instance_groups:
     release: rabbitmq-forge
 
     properties:
+      plugins: (( grab meta.plugins ))
       erlang:
         cookie: (( grab meta.erlang_cookie ))
       rabbitmq:
