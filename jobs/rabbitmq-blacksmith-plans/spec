@@ -22,6 +22,9 @@ templates:
   tls/loggregator.ca:               tls/loggregator.ca
   tls/loggregator.crt:              tls/loggregator.crt
   tls/loggregator.key:              tls/loggregator.key
+  tls/cloud_controller.ca:          tls/cloud_controller.ca
+  tls/cloud_controller.crt:         tls/cloud_controller.crt
+  tls/cloud_controller.key:         tls/cloud_controller.key
 
 properties:
   persistent_disk_type:
@@ -151,6 +154,15 @@ properties:
   rabbitmq.network:
     description: Network for RabbitMQ Service Deployment
     default: rabbitmq-service
+  
+  cloud-controller.tls.ca_cert:
+    description: The CA Certificate for cloud controller
+  
+  cloud-controller.tls.cert:
+    description: The Certificate for cloud controller
+  
+  cloud-controller.tls.key:
+    description: The private key for cloud controller
 
   azs:
     description: Availability Zones for RabbitMQ 
