@@ -15,9 +15,23 @@ case $1 in
     chown vcap:vcap /var/vcap/store/rabbitmq/RABBITMQ_VERSION \
       /var/vcap/store/rabbitmq/ERLANG_VERSION_FULL
 
+    PLUGINS=""
     <% if p('management') -%>
-    rabbitmq-plugins enable --offline rabbitmq_management >>$LOG_DIR/rabbitmq.log 2>&1
+    PLUGINS="rabbitmq_management"
     <% end %>
+
+    # Add additional plugins specified in params
+    <% if_p('plugins') do |additional_plugins| %>
+    PLUGINS="$PLUGINS <%= additional_plugins.join(' ') %>"
+    <% end %>
+
+    # Enable additional plugins specified in params
+    if [ ! -z "$PLUGINS" ]; then
+      echo "Enabling plugins: $PLUGINS" >>$LOG_DIR/rabbitmq.log 2>&1
+      rabbitmq-plugins enable --offline $PLUGINS >>$LOG_DIR/rabbitmq.log 2>&1
+    else
+      echo "No plugins specified to enable" >>$LOG_DIR/rabbitmq.log 2>&1
+    fi
 
     exec chpst -u vcap:vcap rabbitmq-server >>$LOG_DIR/rabbitmq.log 2>&1
     ;;

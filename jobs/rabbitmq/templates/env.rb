@@ -23,7 +23,7 @@ export RABBITMQ_NODENAME="rabbit@<%= spec.id %>.<%= spec.name %>.<%= p('rabbitmq
 export RABBITMQ_PID_FILE="${RUN_DIR}/rabbitmq.pid"
 export RABBITMQ_USE_LONGNAME="true"
 export RABBITMQ_VHOST="<%= p('rabbitmq.vhost') %>"
-export RABBITMQ_EVAL_TIMEOUT="60"
+export RABBITMQ_EVAL_TIMEOUT="90"
 
 # Erlang
 export EPMD_PID_FILE="${RUN_DIR}/epmd.pid"
