@@ -49,6 +49,8 @@ properties:
     default: rabbitmq-service
   rabbitmq.plan:
     description: The plan type (standalone/cluster) currently in use
+  plugins:
+    default: []
 
   rabbitmq.admin.user:
     description: "Rabbitmq admin username"
