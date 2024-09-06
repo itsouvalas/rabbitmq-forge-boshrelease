@@ -1,0 +1,3 @@
+<% if p("rabbitmq.autoscale.enabled") -%>
+<%= p('syslog_agent_metrics.tls.cert') %>
+<% end -%>

@@ -151,29 +151,47 @@ instance_groups:
   - name:    bpm
     release: bpm
 <% end -%>
-
-  - name: loggregator_agent
+  - name: loggr-syslog-agent
     release: loggregator-agent
-
+    
     consumes:
-      doppler:
-        from: doppler
-        deployment: (( grab meta.cf.deployment_name ))
+      log-cache:
+        from: log-cache
+        alias: binding_cache
+        deployment: <%= p("cf.deployment_name") -%>
 
     properties:
-      loggregator:
+      port: 3460
+      drain_ca_cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.ca" ))
+      tls:
+        ca_cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.ca" ))
+        cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.crt" ))
+        key: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.key" ))
+      cache:
         tls:
-          ca_cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.ca" ))
-          agent:
-            cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.crt" ))
-            key: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.key" ))
-
+          ca_cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/syslog_agent_api.ca" ))
+          cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/syslog_agent_api.crt" ))
+          key: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/syslog_agent_api.key" ))
+          cn: binding-cache
       metrics:
-        server_name: (( concat meta.environment "-rabbitmq-metrics-emitter" ))
-        ca_cert: (( file "/var/vcap/jobs/blacksmith/config/tls/blacksmith_services_ca" ))
-        cert:    ((rabbitmq_metrics_emitter_crt.certificate))
-        key:     ((rabbitmq_metrics_emitter_crt.private_key))
+        ca_cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/syslog_agent_metrics.ca" ))
+        cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/syslog_agent_metrics.crt" ))
+        key: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/syslog_agent_metrics.key" ))
+        server_name: syslog_agent_metrics
 
+  - name: loggr-forwarder-agent
+    release: loggregator-agent
+    properties:
+      tls:
+        ca_cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.ca" ))
+        cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.crt" ))
+        key: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/loggregator.key" ))
+      metrics:
+        ca_cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/forwarder_agent_metrics.ca" ))
+        cert: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/forwarder_agent_metrics.crt" ))
+        key: (( file "/var/vcap/jobs/rabbitmq-blacksmith-plans/tls/forwarder_agent_metrics.key" ))
+        server_name: forwarder_agent_metrics
+        
   - name: rabbitmq-metrics-emitter
     release: rabbitmq-metrics-emitter
 

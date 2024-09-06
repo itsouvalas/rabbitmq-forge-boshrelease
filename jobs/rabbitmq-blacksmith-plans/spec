@@ -22,6 +22,15 @@ templates:
   tls/loggregator.ca:               tls/loggregator.ca
   tls/loggregator.crt:              tls/loggregator.crt
   tls/loggregator.key:              tls/loggregator.key
+  tls/syslog_agent_api.ca:          tls/syslog_agent_api.ca
+  tls/syslog_agent_api.crt:         tls/syslog_agent_api.crt
+  tls/syslog_agent_api.key:         tls/syslog_agent_api.key
+  tls/syslog_agent_metrics.ca:      tls/syslog_agent_metrics.ca
+  tls/syslog_agent_metrics.crt:     tls/syslog_agent_metrics.crt
+  tls/syslog_agent_metrics.key:     tls/syslog_agent_metrics.key
+  tls/forwarder_agent_metrics.ca:   tls/forwarder_agent_metrics.ca
+  tls/forwarder_agent_metrics.crt:  tls/forwarder_agent_metrics.crt
+  tls/forwarder_agent_metrics.key:  tls/forwarder_agent_metrics.key
 
 properties:
   persistent_disk_type:
@@ -152,6 +161,33 @@ properties:
     description: Network for RabbitMQ Service Deployment
     default: rabbitmq-service
 
+  syslog_agent_api.tls.ca_cert:
+    description: The CA Certificate for syslog agent api
+  
+  syslog_agent_api.tls.cert:
+    description: The Certificate for syslog agent api
+  
+  syslog_agent_api.tls.key:
+    description: The private key for syslog agent api
+  
+  syslog_agent_metrics.tls.ca_cert:
+    description: The CA Certificate for syslog agent metrics
+  
+  syslog_agent_metrics.tls.cert:
+    description: The Certificate for syslog agent metrics
+  
+  syslog_agent_metrics.tls.key:
+    description: The private key for syslog agent metrics
+  
+  forwarder_agent_metrics.tls.ca_cert:
+    description: The CA Certificate for forwarder agent metrics
+  
+  forwarder_agent_metrics.tls.cert:
+    description: The Certificate for forwarder agent metrics
+  
+  forwarder_agent_metrics.tls.key:
+    description: The private key for forwarder agent metrics
+  
   azs:
     description: Availability Zones for RabbitMQ 
     default:
