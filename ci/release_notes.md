@@ -1,2 +1,0 @@
-- Added Syslog and Forwarder Agent TLS to RabbitMQ
-- Added binding_cache consumes and drain ca cert to loggregator agent.
