@@ -155,9 +155,8 @@ instance_groups:
     release: loggregator-agent
     
     consumes:
-      log-cache:
-        from: log-cache
-        alias: binding_cache
+      binding_cache:
+        from: binding_cache
         deployment: <%= p("cf.deployment_name") -%>
 
     properties:
@@ -299,6 +298,26 @@ addons:
           instance_group: nats
           network: (( grab params.cf.core_network ))
           query: _
+
+<% if p("rabbitmq.autoscale.enabled") -%>
+      - domain: log-cache.service.cf.internal
+
+        targets:
+        - deployment: (( grab meta.cf.deployment_name ))
+          domain: bosh
+          instance_group: log-cache
+          network: (( grab params.cf.core_network ))
+          query: '*'
+
+      - domain: _.log-cache.service.cf.internal 
+      
+        targets:
+        - deployment: (( grab meta.cf.deployment_name ))
+          domain: bosh
+          instance_group: log-cache
+          network: (( grab params.cf.core_network ))
+          query: _
+<% end -%>
 
 <% end -%>
 
