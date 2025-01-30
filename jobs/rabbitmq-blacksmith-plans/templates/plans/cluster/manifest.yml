@@ -348,7 +348,7 @@ releases:
     sha1: "623e45f6c19a68d01c313a9a1a504dabc39ac1cf"
   - name:    rabbitmq-metrics-emitter
     version: 0.4.1
-    url:     https://github.com/cloudfoundry-community/rabbitmq-metrics-emitter-release/releases/download/0.4.1/rabbitmq-metrics-emitter-0.4.1.tgz
+    url:     https://github.com/cloudfoundry-community/rabbitmq-metrics-emitter-release/releases/download/v0.4.1/rabbitmq-metrics-emitter-0.4.1.tgz
     sha1:    05afc6f3559f45e0696c6a3760242045640e0df8
 <% end -%>
 
